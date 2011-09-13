@@ -1,0 +1,100 @@
+             SCTE - Software for Controlling Testing Equipment
+                            -- Experiments --
+
+
+What is it?
+-----------
+
+  SCTE Experiments are Perl scripts, part of the SCTE bundle, that provide
+  examples on how to use the SCTE::Instrument module functionalities in order
+  to develop an automated data acquisition system using testing instruments.
+
+
+Dependencies
+------------
+
+  The scripts included in these experiments require the following Perl modules
+  in order to work:
+
+  o SCTE::Instrument => 3.0.0
+  o Term::ANSIColor => 2.02
+  o Math::GSL::Vector => 0.25_4
+  o Math::GSL::Statistics => 0.25_4
+
+  With the exception of the SCTE::Instrument module, you can install all other
+  modules directly from CPAN [1]. For instructions on how to install Perl
+  modules like these, see http://www.cpan.org/modules/INSTALL.html.
+  
+  Work is underway in order to make SCTE::Instrument available from CPAN as 
+  well. In the meantime refer to the README file under SCTE-Instrument 
+  directory for installation instructions.
+
+  [1] CPAN - Comprehensive Perl Archive Network
+      http://www.cpan.org/
+
+
+Installation
+------------
+
+  The experiment scripts don't require installation although they depends on
+  other Perl modules in order to work (see Dependencies section for more
+  details).
+
+  After installing all the dependencies, you can run the 'run.pl' scripts
+  available for each experiment.
+
+
+Documentation
+-------------
+
+  The documentation available as of the date of this release is available
+  http://http://arxiv.org/abs/0906.4833. The most up-to-date documentation can
+  be found at http://scte.sf.net.
+
+  For each experiment related information, see the companion README files.
+
+
+Known Bugs
+----------
+
+  There are no known bugs at this time, if you find one please report it. It is
+  the only way we can correct it and improve SCTE stability and usability. For
+  reporting bug, see Contacts section.
+
+
+Contacts
+--------
+
+  For contacts and bug repots you can send an email to <lm.guidolin@gmail.com>.
+
+
+Authors and Acknowledgments
+---------------------------
+
+  See THANKS for details.
+
+
+Licensing
+---------
+
+  SCTE bundle is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 3, or (at your option) any later version.
+
+  SCTE bundle is distributed in the hope that it will be useful, but WITHOUT 
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public License along with
+  SCTE; see the file COPYING.  If not, write to the Free Software Foundation,
+  Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+----------------------------------------------
+  __.-._
+   '-._"7'
+    /'.-c   Use the force, read the source!
+    |  /T   
+   _)_/LI
+----------------------------------------------

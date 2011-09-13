@@ -1,0 +1,7 @@
+Changes
+COPYING
+Makefile.PL
+MANIFEST
+README
+t/SCTE-Instrument.t
+lib/SCTE/Instrument.pm

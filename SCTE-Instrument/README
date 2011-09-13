@@ -1,0 +1,102 @@
+             SCTE - Software for Controlling Testing Equipment
+                     -- SCTE-Instrument version 3.0.0 --
+
+
+What is it?
+-----------
+
+  SCTE::Instrument is the Perl module, part of the SCTE bundle, and provides
+  an interface to testing instruments connected through serial (RS-232), or USB
+  ports.
+
+
+Dependencies
+------------
+
+  SCTE::Instrument requires the following modules in order to install and work:
+
+  o Term::ANSIColor => 2.02
+  o Device::SerialPort => 1.04
+
+  You can install these modules directly from CPAN [1]. For instructions on how
+  to install Perl modules like these, see 
+  http://www.cpan.org/modules/INSTALL.html.
+  
+  [1] CPAN - Comprehensive Perl Archive Network
+      http://www.cpan.org/
+
+
+Installation
+------------
+
+
+  SCTE::Instruments depends on other two libraries that must be present prior
+  the installation (see Dependencies section for more details).
+
+  After installing all the dependencies, you can install this module by typing
+  the following commands in a terminal:
+
+     perl Makefile.PL
+     make
+     make test
+     make install
+
+  NOTE: in order to install this library system wide, you are required to issue
+  the last command (make install) as the root user.
+
+
+Documentation
+-------------
+
+  The documentation available as of the date of this release is available
+  http://http://arxiv.org/abs/0906.4833. The most up-to-date documentation can
+  be found at http://scte.sf.net.
+  
+  After installation you can refer to the man page for information on how
+  to use SCTE::Instrument (man SCTE::Instrument).
+
+
+Known Bugs
+----------
+
+  There are no known bugs at this time, if you find one please report it. It is
+  the only way we can correct it and improve SCTE stability and usability. For
+  reporting bug, see Contacts section.
+
+
+Contacts
+--------
+
+  For contacts and bug repots you can send an email to <lm.guidolin@gmail.com>.
+
+
+Authors and Acknowledgments
+---------------------------
+
+  See THANKS for details.
+
+
+Licensing
+---------
+
+  SCTE bundle is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 3, or (at your option) any later version.
+
+  SCTE bundle is distributed in the hope that it will be useful, but WITHOUT 
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public License along with
+  SCTE; see the file COPYING.  If not, write to the Free Software Foundation,
+  Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+----------------------------------------------
+  __.-._
+   '-._"7'
+    /'.-c   Use the force, read the source!
+    |  /T   
+   _)_/LI
+----------------------------------------------
