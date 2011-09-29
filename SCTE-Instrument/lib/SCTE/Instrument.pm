@@ -228,16 +228,17 @@ sub CheckConfigurations
   
   foreach( sort keys %{ $self->{CONFIGURATIONS} } )
   {
+    my $command = $_;
     print BOLD YELLOW "    * ";
-    print RED "$_";
-    print YELLOW "."x(25 - length($_));
+    print RED "$command";
+    print YELLOW "."x(25 - length($command));
 
-    my $reply = $self->Write( "$_?" );
+    my $reply = $self->Write( "${command}?" );
 
     if( ! $reply ) { print BOLD RED " [FAILED]"; }
     else { print BOLD GREEN $reply; }
 
-    print GREEN " ($self->{CONFIGURATIONS}{$_})\n";
+    print GREEN " ($self->{CONFIGURATIONS}{$command})\n";
   }
   
   print BOLD BLUE "_" x 70 . "\n";
