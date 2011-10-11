@@ -18,6 +18,10 @@
 
 sub RunExperiment
 {
+  use Math::GSL::RNG;
+  use Math::GSL::Randist qw/:all/;
+
+  my $rng = Math::GSL::RNG->new();
   my ( $dev , $PHexperimentInfo , $PHreadings ) = @_;
   my $reading = undef;
   my $reading_num = 0;
@@ -60,7 +64,7 @@ sub RunExperiment
 
     # holds the execution of the next step by an pseudo-aleatory period of
     # time in the range of 0 to 1 second.
-    select( undef , undef , undef , &ChooseRandomDelay() );
+    select( undef , undef , undef , gsl_ran_flat( $rng->raw(), 0.0, 1.0 ); );
 
     $reading_num++;
   }
