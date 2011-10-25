@@ -43,7 +43,6 @@ $Term::ANSIColor::AUTORESET = 1;
 #__ for Configurations __
 my %general_confs;
 my %device_1_confs;
-my %experiment_confs;
 
 #__ for Devices __
 my $device_1;
@@ -64,7 +63,6 @@ my $stdout_flush;
 #__ READ CONFIGURATION FILES __________________________________________________
 
 &ReadConfigurations( "etc/general.conf", \%general_confs );
-&ReadConfigurations( "etc/experiment_infos.conf", \%experiment_confs );
 &ReadConfigurations(
   "etc/$general_confs{DEVICE_1_CONFIGURATION}",
   \%device_1_confs
@@ -133,48 +131,48 @@ $device_1->CheckConfigurations();
 
 
 #__ EXPERIMENT CONFIGURATION __________________________________________________
-
-&QueryExperimentConfigurations( \%experiment_confs );
-
 foreach( keys %device_1_readings )
 { 
   $device_1_readings{$_} = Math::GSL::Vector->new(
-    $experiment_confs{READINGS_PER_POINT}
+    $general_confs{READINGS_PER_POINT}
   );
 }
 
 
 #__ EXPERIMENT  _______________________________________________________________
 
-&InitializeStorage(
-  \%general_confs,
-  \%experiment_confs,
-  \%files
-); 
+my $file_to_plot = &InitializeStorage( \%general_confs, \%files ); 
+&WriteFileHeaders( \%files );
 
-&WriteFileHeaders(
-  \%files,
-  \%experiment_confs
-);
+do
+{
+  &RunExperiment( $device_1, \%device_1_readings );
 
-&RunExperiment(
-  $device_1,
-  \%experiment_confs,
-  \%device_1_readings
-);
+  &AnalyseReadings(
+    \%device_1_readings,
+    \%device_1_readings_avg,
+    \%device_1_readings_sderr
+  );
 
-&AnalyseReadings(
-  \%device_1_readings,
-  \%device_1_readings_avg,
-  \%device_1_readings_sderr
-);
+  &WriteData(
+    \%files, 
+    \%device_1_readings,
+    \%device_1_readings_avg,
+    \%device_1_readings_sderr
+  );
 
-&WriteData(
-  \%files, 
-  \%device_1_readings,
-  \%device_1_readings_avg,
-  \%device_1_readings_sderr
-);
+  open( GNUPLOT, "|$general_confs{PLOT_APP_PATH} -p" );
+print GNUPLOT <<EOPLOT;
+unset key 
+set xlabel "Input Signal (V)"
+set ylabel "Output Signal (V)"
+plot "$file_to_plot" using 1:5:(sqrt(\$2*\$2+\$6*\$6)) with yerrorbars
+EOPLOT
+  close(GNUPLOT);	
+
+  print "\n-> Continue[Y/n]? ";
+  
+} while <STDIN> !~ /^n$/;
 
 &CloseStorage( \%files );
 

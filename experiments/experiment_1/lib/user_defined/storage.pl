@@ -30,7 +30,8 @@ sub InitializeStorage
   my ( $PHgeneral_confs , $PHexperiment_confs, $PHfiles ) = @_;
 
   use POSIX qw(strftime);
-  my $date = strftime "%Y%m%d-%H%M" , localtime; 
+  my $date = strftime "%Y%m%d-%H%M" , localtime;
+  my $analysed_file_name = undef; 
 
   # generate output file names
   my $file_name = "$date-$PHexperiment_confs->{DEV_UNDER_CAL}-" .
@@ -69,11 +70,15 @@ sub InitializeStorage
   rename( $PHfiles->{RAW_DATA}, "$PHfiles->{RAW_DATA}.old" ) or 
     die "\n\n[$PHfiles->{RAW_DATA}]: $!\n\n" if( -f $PHfiles->{RAW_DATA} );
   
+  $analysed_file_name = $PHfiles->{ANALYSED};
+
   foreach( keys %$PHfiles )
   {
     open $PHfiles->{$_}, ">$PHfiles->{$_}" or 
       die "\n\n[$PHfiles->{$_}]:$!\n\n";
   }
+
+  return $analysed_file_name;
 }
 
 
