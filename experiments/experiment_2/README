@@ -1,0 +1,136 @@
+             SCTE - Software for Controlling Testing Equipment
+                           -- Experiment 1 --
+
+
+What is it?
+-----------
+
+  Experiment 1 is a fully operational example of a data acquisition system that
+  controls one instrument (Oscilloscope) connected via USB port, that was 
+  originally aimed to acquire the calibration curve of a group of components
+  developed to be part of the power measurement system of the AWES system in 
+  the Tokamak TCABR [1,2], such as Rogowskii coils, and RF signal multipliers.  
+
+
+Experiment preparation
+----------------------
+
+  The experiment preparation comprises of 3 steps:
+  
+  1. connect an SCPI capable oscilloscope to an USB port;
+  2. loading the kernel module 'usbtmc.ko'. For instructions on how to set it
+     up see references [3,4];
+  3. configure the device specific information in
+     'experiments/experiment_1/etc/general.conf', parameters: 'DEVICE_1_*'
+
+
+Running the experiment
+----------------------
+
+  In order to run the experiment simply execute:
+  
+    perl run.pl
+
+
+Experiment Details
+------------------
+
+  This experiment script is going read channels 1 and 2 of the oscilloscope
+  (connected via USB), reading peak to peak and frequency values. These values
+  are going to be stored in two different files, one with the actual readings,
+  and a second one with mean values and standard errors. Both files are going
+  to be stored in the 'output_data' directory.
+  
+  Before the data acquisition is initiated, 5 questions are going to be asked 
+  (see 'experiments/experiment_1/etc/experiment_infos.conf'):
+  
+  1. comments about the experiment: in which the user must provide any details
+     about the ongoing experiment, such as frequencies involved, input signal,
+     etc.
+  2. device under calibration: which is an identification of the device under
+     calibration. Replace any spaces in this identification since it is going
+     to be used in the output file names. Ex.: if the device ID is multiplier
+     number 10, you can use: multp_10 as a good identifier.
+  3. frequency of the input signal: the frequency of the applied signal. Ex.: 
+     5Mhz_aquareMod_10ms.
+  4. output under calibration: corresponds to which port the reading is being
+     performed. Ex.: if there are two outputs, one inverted and another
+     non-inverted, you could use: inv or non-inv.
+  5. number of points per reading: i.e. the number of readings to be performed
+     for each input signal. Ex.: 10
+
+
+Installation and Dependencies
+-----------------------------
+
+  See experiments/README for details.
+
+
+Documentation
+-------------
+
+  The documentation available as of the date of this release is available
+  http://http://arxiv.org/abs/0906.4833. The most up-to-date documentation can
+  be found at http://scte.sf.net.
+
+
+References
+----------
+
+  [1] Ernesto A. Lerche et. al., Preliminary results on Alfvén wave system in 
+      the TCABR tokamak, doi: 10.1063/1.1374907
+
+  [2] Luiz C. Mostaço-Guidolin, Determinação da configuração de ondas de Alfvén
+      excitadas no tokamak TCABR
+
+  [3] Agilent AN 1465-30 Using Linux to Control USB Instruments,
+      Application Note, Literature Number: 5989-6718EN
+
+  [4] Agilent AN 1465-27 Using Linux in Your Test Systems: Linux Basics,
+      Application Note, Literature Number: 5989-6715EN
+
+
+Known Bugs
+----------
+
+  There are no known bugs at this time, if you find one please report it. It is
+  the only way we can correct it and improve SCTE stability and usability. For
+  reporting bug, see Contacts section.
+
+
+Contacts
+--------
+
+  For contacts and bug repots you can send an email to <lm.guidolin@gmail.com>.
+
+
+Authors and Acknowledgments
+---------------------------
+
+  See THANKS for details.
+
+
+Licensing
+---------
+
+  SCTE bundle is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 3, or (at your option) any later version.
+
+  SCTE bundle is distributed in the hope that it will be useful, but WITHOUT 
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  You should have received a copy of the GNU General Public License along with
+  SCTE; see the file COPYING.  If not, write to the Free Software Foundation,
+  Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+
+
+----------------------------------------------
+  __.-._
+   '-._"7'
+    /'.-c   Use the force, read the source!
+    |  /T   
+   _)_/LI
+----------------------------------------------
