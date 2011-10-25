@@ -18,7 +18,7 @@
 #______________________________________________________________________________
 
 use warnings;
-#use strict;
+use strict;
 
 use sigtrap 'handler', \&SignalHandler, qw( QUIT normal-signals);
 
@@ -28,9 +28,6 @@ use SCTE::Instrument;
 
 require "lib/signal_handler.pl";
 require "lib/read_configurations.pl";
-require "lib/query_experiment_configurations.pl";
-require "lib/choose_random_delay.pl";
-
 require "lib/user_defined/experiment.pl";
 require "lib/user_defined/storage.pl";
 require "lib/user_defined/analysis.pl";
