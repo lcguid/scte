@@ -64,7 +64,7 @@ sub RunExperiment
 
     # holds the execution of the next step by an pseudo-aleatory period of
     # time in the range of 0 to 1 second.
-    select( undef , undef , undef , gsl_ran_flat( $rng->raw(), 0.0, 1.0 ); );
+    select( undef , undef , undef , gsl_ran_flat( $rng->raw(), 0.0, 1.0 ) );
 
     $reading_num++;
   }
