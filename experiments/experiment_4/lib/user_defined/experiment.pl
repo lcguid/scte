@@ -38,7 +38,7 @@ sub ScreenCapture
 
   # Initialization of the serial port
   $dh = Device::SerialPort->new( $dev )  ;
-    die "Can't open serial device $dev: $^E\n" unless( $dh ) ;
+    die "Can't open serial device $dev banana: $^E\n" unless( $dh ) ;
 
   $dh->read_char_time(0);    # don't wait for each character
   $dh->read_const_time(100); # 1 second per unfulfilled "read" call
