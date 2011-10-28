@@ -1,29 +1,29 @@
              SCTE - Software for Controlling Testing Equipment
-                           -- Experiment 2 --
+                           -- Experiment 1 --
 
 
 What is it?
 -----------
 
-  Experiment 2 is a fully operational example of a data acquisition system that
-  controls two instruments (Oscilloscopes) connected via USB and RS-232 ports.
-  It is an extension of experiment 1, with the same purpose, but that provides
-  an example on how to handle more than one instrument at a time.
+  Experiment 3 captures the wave form data points of the signal displayed in 
+  the oscilloscope's screen.
+  
+  Note: this experiment has been designed to work with Tektronix oscilloscopes,   
+  TDS-100, 200, 1000, and 2000 series. If you want to use another oscilloscope
+  you may have to alter all SCPI commands in this application. Pleas consult 
+  the programmers manual of your oscilloscope for a list of commands and
+  functionalities.
 
 
 Experiment preparation
 ----------------------
 
-  The experiment preparation comprises of 4 steps:
+  The experiment preparation comprises of 2 steps:
   
-  1. connect an SCPI capable oscilloscope to an USB port;
-  2. connect an SCPI capable oscilloscope to an RS-232 port using a null 
+  1. connect an SCPI capable oscilloscope to an RS-232 port using a null 
      modem cable;
-  3. load the kernel module 'usbtmc.ko'. For instructions on how to set it
-     up see references [3,4];
-  4. configure the device specific information in
-     'experiments/experiment_2/etc/general.conf', parameters: 'DEVICE_1_*' and 
-     'DEVICE_2_*'
+  2. configure the device specific information in
+     'experiments/experiment_3/etc/general.conf', parameters: 'DEVICE_1_*'
 
 
 Running the experiment
@@ -32,19 +32,6 @@ Running the experiment
   In order to run the experiment simply execute:
   
     perl run.pl
-
-
-Experiment Details
-------------------
-
-  This experiment script is going read channels 1 and 2 of the oscilloscope
-  (connected via USB), reading peak to peak and frequency values. These values
-  are going to be stored in two different files, one with the actual readings,
-  and a second one with mean values and standard errors. Both files are going
-  to be stored in the 'output_data' directory.
-  
-  Experiment specific configurations may be included in the etc/general.conf
-  file.
 
 
 Installation and Dependencies

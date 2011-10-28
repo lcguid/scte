@@ -271,7 +271,6 @@ sub Write
     die "ERROR [Write( msg )]: needs a message !";
   }
   
-  
   $reply = $self->SerialWrite( $message ) if( $self->{BUS} =~ /^RS-232$/ );
   $reply = $self->USBWrite( $message ) if( $self->{BUS} =~ /^USB$/ );
   
@@ -297,7 +296,7 @@ sub SerialWrite
 
   # Initialization of the serial port
   my $dh = Device::SerialPort->new( $self->{DEVICE} );
-   
+  
   die "Can't open serial device $self->{DEVICE}: $^E\n" unless( $dh );
   
   $dh->write( "$command\n" );

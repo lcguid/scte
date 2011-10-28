@@ -133,21 +133,29 @@ sub WriteFileHeaders
 =cut #_________________________________________________________________________
 sub WriteData
 {
-  my ( $PHfiles, $PHreadings, $PHreadings_avg, $PHreadings_sderr ) = @_;
+  my (
+    $PHfiles,
+    $PHreadings1,
+    $PHreadings_avg1,
+    $PHreadings_sderr1,
+    $PHreadings2,
+    $PHreadings_avg2,
+    $PHreadings_sderr2
+  ) = @_;
 
   my @keys = ( 
     "CH1_Freq",
     "CH1_Pk2Pk",
-    "CH2_Freq",
-    "CH2_Pk2Pk"
   );
 
   select $PHfiles->{RAW_DATA};
 
   foreach( @keys )
   {
-    print "$_";
-    foreach( $PHreadings->{$_}->as_list ) { print ":$_" }
+    print "DEV1:$_";
+    foreach( $PHreadings1->{$_}->as_list ) { print ":$_" }
+    print "DEV2:$_";
+    foreach( $PHreadings2->{$_}->as_list ) { print ":$_" }
     print "\n";
   }
 
@@ -155,7 +163,8 @@ sub WriteData
 
   foreach( @keys )
   {
-    print "$_:$PHreadings_avg->{$_}:$PHreadings_sderr->{$_}\n";
+    print "$PHreadings_avg1->{$_}\t$PHreadings_sderr1->{$_}";
+    print "$PHreadings_avg2->{$_}\t$PHreadings_sderr2->{$_}\n";
   }
 
   select STDOUT;

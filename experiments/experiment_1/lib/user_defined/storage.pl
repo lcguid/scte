@@ -155,9 +155,11 @@ sub WriteData
 
   foreach( @keys )
   {
-    print "$_:$PHreadings_avg->{$_}:$PHreadings_sderr->{$_}\n";
+    print "$PHreadings_avg->{$_}\t$PHreadings_sderr->{$_}\t";
   }
 
+  print "\n";
+  
   select STDOUT;
 }
 

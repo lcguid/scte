@@ -143,7 +143,7 @@ my $file_to_plot = &InitializeStorage( \%general_confs, \%files );
 
 do
 {
-  &RunExperiment( $device_1, \%device_1_readings );
+  &RunExperiment( \%general_confs, $device_1, \%device_1_readings );
 
   &AnalyseReadings(
     \%device_1_readings,

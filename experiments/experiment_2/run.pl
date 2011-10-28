@@ -40,14 +40,20 @@ $Term::ANSIColor::AUTORESET = 1;
 #__ for Configurations __
 my %general_confs;
 my %device_1_confs;
+my %device_2_confs;
 
 #__ for Devices __
 my $device_1;
+my $device_2;
 
 #__ for Readings __
 my %device_1_readings;
 my %device_1_readings_avg;
 my %device_1_readings_sderr;
+
+my %device_2_readings;
+my %device_2_readings_avg;
+my %device_2_readings_sderr;
 
 #__ for File Descriptors  __
 my %files;
@@ -64,6 +70,10 @@ my $stdout_flush;
   "etc/$general_confs{DEVICE_1_CONFIGURATION}",
   \%device_1_confs
 );
+&ReadConfigurations(
+  "etc/$general_confs{DEVICE_2_CONFIGURATION}",
+  \%device_2_confs
+);
 
 
 #__ INITIALIZATIONS ___________________________________________________________
@@ -76,21 +86,32 @@ $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
 $device_1->SetConfigurations( \%device_1_confs );
 
+$device_2 = SCTE::Instrument->new();
+
+$device_2->SetDevice( $general_confs{DEVICE_2_PATH} );
+$device_2->SetBUS( $general_confs{DEVICE_2_BUS} );
+$device_2->SetDelay( $general_confs{DEVICE_2_DELAY} );
+$device_2->SetConfigurations( \%device_2_confs );
+
+
 #__ Storage __
 $device_1_readings{CH1_Pk2Pk} = undef;
-$device_1_readings{CH2_Pk2Pk} = undef;
 $device_1_readings{CH1_Freq} = undef;
-$device_1_readings{CH2_Freq} = undef;
 
 $device_1_readings_avg{CH1_Pk2Pk} = undef;
-$device_1_readings_avg{CH2_Pk2Pk} = undef;
 $device_1_readings_avg{CH1_Freq} = undef;
-$device_1_readings_avg{CH2_Freq} = undef;
 
 $device_1_readings_sderr{CH1_Pk2Pk} = undef;
-$device_1_readings_sderr{CH2_Pk2Pk} = undef;
 $device_1_readings_sderr{CH1_Freq} = undef;
-$device_1_readings_sderr{CH2_Freq} = undef;
+
+$device_2_readings{CH1_Pk2Pk} = undef;
+$device_2_readings{CH1_Freq} = undef;
+
+$device_2_readings_avg{CH1_Pk2Pk} = undef;
+$device_2_readings_avg{CH1_Freq} = undef;
+
+$device_2_readings_sderr{CH1_Pk2Pk} = undef;
+$device_2_readings_sderr{CH1_Freq} = undef;
 
 #__ File Descriptors __
 $files{RAW_DATA} = undef;
@@ -114,6 +135,15 @@ print BOLD BLUE "\nTesting communication with Device 1: ";
 }
 
 
+print BOLD BLUE "\nTesting communication with Device 2: ";
+
+{
+  my $reply = $device_2->Write( "*IDN?" );
+  
+  if( ! $reply ) { print BOLD RED "[FAILED] \n"; }
+  else { print BOLD GREEN $reply . "\n"; }
+}
+
 #__ DEVICE CONFIGURATION ______________________________________________________
 
 print BOLD BLUE "Configuring Device 1: ";
@@ -126,11 +156,28 @@ print BOLD GREEN "[DONE] \n";
 
 $device_1->CheckConfigurations();
 
+print BOLD BLUE "Configuring Device 2: ";
+
+# Stops printing the header of each command
+$device_2->Write( "HEADer off" ); 
+$device_2->Configure();
+
+print BOLD GREEN "[DONE] \n";
+
+$device_2->CheckConfigurations();
+
 
 #__ EXPERIMENT CONFIGURATION __________________________________________________
 foreach( keys %device_1_readings )
 { 
   $device_1_readings{$_} = Math::GSL::Vector->new(
+    $general_confs{READINGS_PER_POINT}
+  );
+}
+
+foreach( keys %device_2_readings )
+{ 
+  $device_2_readings{$_} = Math::GSL::Vector->new(
     $general_confs{READINGS_PER_POINT}
   );
 }
@@ -143,7 +190,13 @@ my $file_to_plot = &InitializeStorage( \%general_confs, \%files );
 
 do
 {
-  &RunExperiment( $device_1, \%device_1_readings );
+  &RunExperiment(
+    \%general_confs,
+    $device_1,
+    \%device_1_readings,
+    $device_2,
+    \%device_2_readings
+  );
 
   &AnalyseReadings(
     \%device_1_readings,
@@ -151,11 +204,20 @@ do
     \%device_1_readings_sderr
   );
 
+  &AnalyseReadings(
+    \%device_2_readings,
+    \%device_2_readings_avg,
+    \%device_2_readings_sderr
+  );
+
   &WriteData(
     \%files, 
     \%device_1_readings,
     \%device_1_readings_avg,
-    \%device_1_readings_sderr
+    \%device_1_readings_sderr,
+    \%device_2_readings,
+    \%device_2_readings_avg,
+    \%device_2_readings_sderr
   );
 
   open( GNUPLOT, "|$general_confs{PLOT_APP_PATH} -p" );

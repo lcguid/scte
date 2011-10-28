@@ -22,11 +22,11 @@ sub RunExperiment
   use Math::GSL::Randist qw/:all/;
 
   my $rng = Math::GSL::RNG->new();
-  my ( $dev , $PHexperimentInfo , $PHreadings ) = @_;
+  my ( $PHconfs, $dev, $PHreadings ) = @_;
   my $reading = undef;
   my $reading_num = 0;
   
-  while( $reading_num < $PHexperimentInfo->{READINGS_PER_POINT} )
+  while( $reading_num < $PHconfs->{READINGS_PER_POINT} )
   {
     $dev->Write( "ACQ:STATE STOP" );
     $dev->Write( "MEASU:IMM:SOU CH1" );
