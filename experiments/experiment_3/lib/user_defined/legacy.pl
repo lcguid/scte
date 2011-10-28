@@ -48,8 +48,6 @@ sub setExperimentParameters
     print GREEN " ($PHparameters->{$_})\n";
   }
   print BOLD BLUE "=" x 70 . "\n";
-  
-  return &ShallIGoOn();
 }
 
 =pod
