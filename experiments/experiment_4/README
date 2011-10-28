@@ -1,11 +1,11 @@
              SCTE - Software for Controlling Testing Equipment
-                           -- Experiment 1 --
+                           -- Experiment 4 --
 
 
 What is it?
 -----------
 
-  Experiment 3 captures the wave form data points of the signal displayed in 
+  Experiment 4 captures an snapshot image of what is displayed in 
   the oscilloscope's screen.
   
   Note: this experiment has been designed to work with Tektronix oscilloscopes,   
