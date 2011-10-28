@@ -25,9 +25,12 @@ require "lib/user_defined/experiment.pl" ;
 
 &usage() if( !defined @ARGV || $#ARGV < 1 ) ;
 
+my %confs;
+my %device_1_confs;
+
 &ReadConfigurations( "etc/general.conf", \%confs );
 &ReadConfigurations(
-  "etc/$general_confs{DEVICE_1_CONFIGURATION}",
+  "etc/$confs{DEVICE_1_CONFIGURATION}",
   \%device_1_confs
 );
   
