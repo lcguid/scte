@@ -41,7 +41,7 @@ my $device1 = $confs{DEVICE_1_PATH};
 # If there is another printing process running it stops it
 &SerialWrite( $device1, "HARDCopy ABOrt" );
   
-if( ! defined &setExperimentParameters( $device1 , \%Osciloscope_parametes ) )
+if( ! defined &setExperimentParameters( $device1 , \%device_1_confs ) )
 {
   print BOLD RED "\nScree Capture Aborted!\n\n";
   exit;
