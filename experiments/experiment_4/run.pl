@@ -27,6 +27,7 @@ require "lib/user_defined/experiment.pl";
 
 &usage() if( !defined @ARGV || $#ARGV > 0 );
 
+my $device1;
 my %confs;
 my %device_1_confs;
 
@@ -36,18 +37,16 @@ my %device_1_confs;
   \%device_1_confs
 );
 
-my $device1 = $confs{DEVICE_1_PATH};
-
 # If there is another printing process running it stops it
-&SerialWrite( $device1, "HARDCopy ABOrt" );
+&SerialWrite( $confs{DEVICE_1_PATH}, "HARDCopy ABOrt" );
   
-if( ! defined &setExperimentParameters( $device1 , \%device_1_confs ) )
+if( ! defined &setExperimentParameters( $confs{DEVICE_1_PATH} , \%device_1_confs ) )
 {
   print BOLD RED "\nScree Capture Aborted!\n\n";
   exit;
 }
   
-&ScreenCapture( "$ARGV[0]" ); 
+&ScreenCapture( $confs{DEVICE_1_PATH}, "$ARGV[0]" ); 
   
 exit;
 
