@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #______________________________________________________________________________
 
-use strict ;
+use strict;
 
-require "lib/read_configurations.pl"
-require "lib/user_defined/legacy.pl" ;
-require "lib/user_defined/experiment.pl" ;
+require "lib/read_configurations.pl";
+require "lib/user_defined/legacy.pl";
+require "lib/user_defined/experiment.pl";
 
-&usage() if( !defined @ARGV || $#ARGV < 1 ) ;
+&usage() if( !defined @ARGV || $#ARGV < 1 );
 
 my %confs;
 my %device_1_confs;
@@ -34,29 +34,29 @@ my %device_1_confs;
   \%device_1_confs
 );
   
-my $device1 = $confs{DEVICE_1_PATH} ;
+my $device1 = $confs{DEVICE_1_PATH};
 
 # the channels to acquire as specified by the user
-my ( $startCH , $endCH ) ;
+my ( $startCH , $endCH );
 
 if( $ARGV[1] =~ /:/ )
 {
-  ( $startCH , $endCH ) = split /:/ , $ARGV[1] ;
+  ( $startCH , $endCH ) = split /:/ , $ARGV[1];
 }
-else{ $startCH = $endCH = $ARGV[1] ; }
+else{ $startCH = $endCH = $ARGV[1]; }
 
 
 if( ! defined &setExperimentParameters( $device1 , \%device_1_confs ) )
 {
-  print "\nWave Form Capture Aborted!\n\n" ;
-  exit ;
+  print "\nWave Form Capture Aborted!\n\n";
+  exit;
 }
 
 foreach( $startCH .. $endCH )
 {
-  &WaveFormCapture( $ARGV[0] , "CH$_" ) ;
-  &ParseWaveFile( $ARGV[0] , "CH$_" ) ;
+  &WaveFormCapture( $ARGV[0] , "CH$_" );
+  &ParseWaveFile( $ARGV[0] , "CH$_" );
 }
   
-exit ;
+exit;
 
