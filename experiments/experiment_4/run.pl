@@ -18,14 +18,14 @@
 #______________________________________________________________________________
 
 
-use strict ;
-use Term::ANSIColor qw(:constants) ;
+use strict;
+use Term::ANSIColor qw(:constants);
 
-require "lib/read_configurations.pl"
-require "lib/user_defined/legacy.pl" ;
-require "lib/user_defined/experiment.pl" ;
+require "lib/read_configurations.pl";
+require "lib/user_defined/legacy.pl";
+require "lib/user_defined/experiment.pl";
 
-&usage() if( !defined @ARGV || $#ARGV > 0 ) ;
+&usage() if( !defined @ARGV || $#ARGV > 0 );
 
 my %confs;
 my %device_1_confs;
@@ -36,23 +36,23 @@ my %device_1_confs;
   \%device_1_confs
 );
 
-my $device1 = $confs{DEVICE_1_PATH} ;
+my $device1 = $confs{DEVICE_1_PATH};
 
 # If there is another printing process running it stops it
-&SerialWrite( $device1, "HARDCopy ABOrt" ) ;
+&SerialWrite( $device1, "HARDCopy ABOrt" );
   
 if( ! defined &setExperimentParameters( $device1 , \%Osciloscope_parametes ) )
 {
-  print BOLD RED "\nScree Capture Aborted!\n\n" ;
-  exit ;
+  print BOLD RED "\nScree Capture Aborted!\n\n";
+  exit;
 }
   
-&ScreenCapture( "$ARGV[0]" ) ; 
+&ScreenCapture( "$ARGV[0]" ); 
   
-exit ;
+exit;
 
 sub usage
 {
   print "USAGE: ScreenCapture.pl <output file>  \n";
-  exit ;
+  exit;
 }
