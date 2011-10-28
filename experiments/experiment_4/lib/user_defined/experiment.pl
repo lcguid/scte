@@ -34,9 +34,9 @@ sub ScreenCapture
   my $chars = 0 ;
   my $buffer = "" ;
 
-    use Device::SerialPort ;
+  use Device::SerialPort ;
 
-    # Initialization of the serial port
+  # Initialization of the serial port
   $dh = Device::SerialPort->new( $dev )  ;
     die "Can't open serial device $dev: $^E\n" unless( $dh ) ;
 
