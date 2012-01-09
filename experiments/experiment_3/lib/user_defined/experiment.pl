@@ -29,64 +29,64 @@
 =cut
 sub WaveFormCapture
 {
-  my ( $file_name , $channel ) = @_ ;
-  my $STALL_DEFAULT = 10 ; # how many seconds to wait for new input
-  my $timeout = $STALL_DEFAULT ;
-  my $chars = 0 ;
-  my $buffer = "" ;
-  my @command = ( "WFMPre?\n" , "CURVe?\n" ) ; 
+  my ( $file_name , $channel ) = @_;
+  my $STALL_DEFAULT = 10; # how many seconds to wait for new input
+  my $timeout = $STALL_DEFAULT;
+  my $chars = 0;
+  my $buffer = "";
+  my @command = ( "WFMPre?\n" , "CURVe?\n" ); 
 
-  use Device::SerialPort ;
+  use Device::SerialPort;
 
   # Initialization of the serial port
-  $dh = Device::SerialPort->new( $dev )  ;
-    die "Can't open serial device $dev: $^E\n" unless( $dh ) ;
+  $dh = Device::SerialPort->new( $dev );
+    die "Can't open serial device $dev: $^E\n" unless( $dh );
 
   $dh->read_char_time(0);    # don't wait for each character
   $dh->read_const_time(100); # 1 second per unfulfilled "read" call
   
-  open FILE , ">/tmp/${file_name}_scte.tmp" or die "Can't open file for writing: $!" ;
+  open FILE , ">/tmp/${file_name}_scte.tmp" or die "Can't open file for writing: $!";
   
-  print MAGENTA "\nPROGRESS $channel:" ;
+  print MAGENTA "\nPROGRESS $channel:";
   
-  &SerialWrite( "ACQ:STATE STOP" ) ;
-  &SerialWrite( "DATa:SOUrce $channel" ) ;
+  &SerialWrite( "ACQ:STATE STOP" );
+  &SerialWrite( "DATa:SOUrce $channel" );
 
-  my $counter = 0 ;
+  my $counter = 0;
   while( defined $command[$counter] )
   {
-    $dh->write( $command[$counter] ) ;
-    print $dh->input() ;
+    $dh->write( $command[$counter] );
+    print $dh->input();
     
-    select( undef , undef , undef , 0.5 ) ;
-    my $fh = select(STDOUT) ; $| = 1 ; select($fh) ;
+    select( undef , undef , undef , 0.5 );
+    my $stdout_flush = select(STDOUT); $| = 1; select($stdout_flush);
     
     while( $timeout > 0 )
     { # it will read _up to_ 255 chars
-      my ( $count , $saw ) = $dh->read( 255 ) ; 
+      my ( $count , $saw ) = $dh->read( 255 ); 
     
       if( $count > 0 )
       {
-        $chars += $count ;
-        $buffer = $saw ;
-        print MAGENTA "." ; 
-        print FILE "$buffer" ;
+        $chars += $count;
+        $buffer = $saw;
+        print MAGENTA "."; 
+        print FILE "$buffer";
       }
       else
       {
-        $timeout-- ;
+        $timeout--;
       }
     }
    
     if( $timeout == 0 )
     {
-      $counter++ ;
-      $timeout = $STALL_DEFAULT ;
-      print RED "." ;
+      $counter++;
+      $timeout = $STALL_DEFAULT;
+      print RED ".";
     }
   }
-  print BOLD BLUE "\n\nAcquisition Finished!\n\n" ;
-  close FILE ;
+  print BOLD BLUE "\n\nAcquisition Finished!\n\n";
+  close FILE;
 }
 
 =pod
@@ -101,10 +101,10 @@ sub WaveFormCapture
 =cut
 sub ParseWaveFile
 {
-  my ( $inDataFile , $channel ) = @_ ;
-  my @data ;
-  my $x ;
-  my $y ;
+  my ( $inDataFile , $channel ) = @_;
+  my @data;
+  my $x;
+  my $y;
 
   my %scale_factors = (
         "WFMPre:${channel}:XZEro"  => "" ,
@@ -113,46 +113,46 @@ sub ParseWaveFile
         "WFMPre:${channel}:YZEro"  => "" ,
         "WFMPre:${channel}:YMUlt" => "" ,
         "WFMPre:${channel}:YOFf"   => "" 
-                      ) ;
+                      );
 
   # These are the parameters as described on page 2-180 of the tektronix
   # Osciloscope series TDS-100/200 programmer manual to convert the 
   # acquired data to the usable values.
   foreach( keys %scale_factors )
   {
-    $scale_factors{$_} = &SerialWrite( "${_}?" ) ;
+    $scale_factors{$_} = &SerialWrite( "${_}?" );
     print $_ . " = " . $scale_factors{$_} . "\n";
   }
 
-  open FILEin , "/tmp/${inDataFile}_scte.tmp" or die $! ;
-    @data = <FILEin> ;
-  close FILEin ;
+  open FILEin , "/tmp/${inDataFile}_scte.tmp" or die $!;
+    @data = <FILEin>;
+  close FILEin;
   
-  open FILEout , ">$ENV{PWD}/${inDataFile}_${channel}.dat" or die $! ;
+  open FILEout , ">$ENV{PWD}/${inDataFile}_${channel}.dat" or die $!;
   
-  @data = split /,/ , $data[1] ;
+  @data = split /,/ , $data[1];
 
   foreach( 0 .. $#data )
   {   
     $x = $scale_factors{"WFMPre:${channel}:XZEro"} + 
          $scale_factors{"WFMPre:${channel}:XINcr"} * 
-         ( $_ - $scale_factors{"WFMPre:${channel}:PT_OFf"} ) ;
+         ( $_ - $scale_factors{"WFMPre:${channel}:PT_OFf"} );
     $y =  $scale_factors{"WFMPre:${channel}:YZEro"} + 
           $scale_factors{"WFMPre:${channel}:YMUlt"} * 
-          ( $data[$_] - $scale_factors{"WFMPre:${channel}:YOFf"} ) ;
+          ( $data[$_] - $scale_factors{"WFMPre:${channel}:YOFf"} );
 
-    print FILEout $x . "\t" . $y . "\n" ;
+    print FILEout $x . "\t" . $y . "\n";
   }
   
-  close FILEout ;
+  close FILEout;
 }
 
 sub usage
 {
   print "Usage: WaveFormCapture.pl <shot_number>  x:y\n";
-  print "   * shot_number: will be part of the file name\n" ;
-  print "   * x[:y]: are the channel range to capture (from CHx to CHy)\n" ;
-  exit ;
+  print "   * shot_number: will be part of the file name\n";
+  print "   * x[:y]: are the channel range to capture (from CHx to CHy)\n";
+  exit;
 }
 
 1;
