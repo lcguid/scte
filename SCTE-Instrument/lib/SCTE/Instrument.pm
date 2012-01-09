@@ -235,8 +235,6 @@ sub CheckConfigurations
 
     my $reply = $self->Write( "${command}?" );
 
-    print BOLD GREEN $reply;
-    
     if( ! $reply ) { print BOLD RED " [FAILED]"; }
     else { print BOLD GREEN $reply; }
 
