@@ -307,6 +307,66 @@ sub SerialWrite
   return $answer;
 }
 
+
+=pod
+  SerialWriteBuffered() - send a command to the device connected to the serial 
+                  port and reads its response and keep read until timeout is 
+                  reached.
+    - receive: the command (that returns more tha 255 chars as response) 
+               to be sent to the equipment;
+    - return : the content of the reply given by the equipment;
+=cut
+sub SerialWriteBuffered
+{
+  my $self = shift;
+  my $command = undef;
+  
+  my $STALL_DEFAULT = 10; # how many seconds to wait for new input
+  my $timeout = $STALL_DEFAULT;
+  my $buffer = "";
+
+  if( @_ ) { $command = shift; }
+  else { die "ERROR [SerialWriteBuffered( MESSAGE )]: no MESSAGE specified!"; }
+
+  use Device::SerialPort;
+
+  # Initialization of the serial port
+  my $dh = Device::SerialPort->new( $self->{DEVICE} );
+  die "Can't open serial device $self->{DEVICE}: $^E\n" unless( $dh );
+   
+  $dh->read_char_time(0);    # don't wait for each character
+  $dh->read_const_time(100); # 1 second per unfulfilled "read" call
+  
+  print MAGENTA "\nREADING BUFFER:";
+  
+  $dh->write( $command );
+  print $dh->input();
+  
+  select( undef , undef , undef , $self->{DELAY} );
+  
+  my $stdout_flush = select( STDOUT );
+  $| = 1;
+  select( $stdout_flush );
+  
+  while( $timeout > 0 )
+  { # it will read _up to_ 255 chars at a time
+    my ( $count , $saw ) = $dh->read( 255 ); 
+  
+    if( $count > 0 )
+    {
+      $buffer .= $saw;
+      print MAGENTA "."; 
+    }
+    else { $timeout--; }
+  }
+  
+  if( $buffer ~! "" ) { print BOLD BLUE "[DONE]"; }
+  else { print BOLD RED "[FAILED]"; }
+
+  return $buffer;
+}
+
+
 =pod
   USBWrite() - send a command to the device connected to the serial port and 
                   reads its response.
