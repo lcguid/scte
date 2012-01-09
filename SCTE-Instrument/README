@@ -50,7 +50,7 @@ Documentation
 
   The documentation available as of the date of this release is available
   http://http://arxiv.org/abs/0906.4833. The most up-to-date documentation can
-  be found at http://scte.sf.net.
+  be found at http://code.google.com/p/scte/.
   
   After installation you can refer to the man page for information on how
   to use SCTE::Instrument (man SCTE::Instrument).
