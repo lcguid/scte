@@ -125,7 +125,7 @@ $device_1->CheckConfigurations();
 &InitializeStorage( \%general_confs, \$output_file, \$file_name );
 
 &RunExperiment( $device_1, \$device_1_readings );
-
+$device_1_readings = "";
 &WriteData( \$output_file, \$device_1_readings );  
 
 &CloseStorage( \$output_file );
