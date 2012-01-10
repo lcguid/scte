@@ -64,7 +64,7 @@ sub WriteData
 =cut #_________________________________________________________________________
 sub CloseStorage
 {
-  my $PSfiles = shift;
+  my $PSfile = shift;
 
   close ${$PSfile};
 }
