@@ -17,7 +17,8 @@
 
 sub usage
 {
-  print "$ARGV[0] <channel_num>";
+  print "Usage: ./run.pl <channel_num>\n";
+  print "  channel_num    : oscilloscope channel number for waveform acquisition\n"
   exit;
 }
 
