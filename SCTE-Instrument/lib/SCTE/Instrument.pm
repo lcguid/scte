@@ -319,14 +319,11 @@ sub SerialWrite
 sub SerialWriteBuffered
 {
   my $self = shift;
-  my $command = undef;
+  my ( $command ) = @_;
   
   my $STALL_DEFAULT = 10; # how many seconds to wait for new input
   my $timeout = $STALL_DEFAULT;
   my $buffer = "";
-
-  if( @_ ) { $command = shift; }
-  else { die "ERROR [SerialWriteBuffered( MESSAGE )]: no MESSAGE specified!"; }
 
   use Device::SerialPort;
 

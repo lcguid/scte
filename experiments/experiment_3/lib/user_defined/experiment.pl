@@ -18,8 +18,7 @@
 sub RunExperiment
 {
   my ( $PHconfs, $dev, $PSreadings, $PSchannel, $PHscale_factors ) = @_;
-  
-  $PSreading = "";
+  my $count = 0
   
   $dev->Write( "ACQ:STATE STOP" );
   $dev->Write( "DATa:SOUrce $PSchannel" );
@@ -32,8 +31,8 @@ sub RunExperiment
     $PHscale_factors->{$_} = $dev->Write( "${_}?" );
   }
 
-  $PSreading .= $dev->SerialWriteBuffered( "WFMPre?" );
-  $PSreading .= $dev->SerialWriteBuffered( "CURVe?" );  
+  $PSreadings = $dev->SerialWriteBuffered( "WFMPre?" );
+  $PSreadings .= $dev->SerialWriteBuffered( "CURVe?" );
 }
 
 1;
