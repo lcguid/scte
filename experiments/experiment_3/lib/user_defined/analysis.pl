@@ -18,31 +18,25 @@
 sub AnalyseReadings
 {
   my ( $PSreadings, $PSchannel, $PHscale_factors ) = @_;
-  my @data;
+  my @data = split /\n/, ${$PSreadings};
+  my $answer = "";
   my $x;
   my $y;
 
-  open FILEin , "/tmp/${inDataFile}_scte.tmp" or die $!;
-    @data = <FILEin>;
-  close FILEin;
-  
-  open FILEout , ">$ENV{PWD}/${inDataFile}_${channel}.dat" or die $!;
-  
-  @data = split /,/ , $data[1];
-
   foreach( 0 .. $#data )
   {   
-    $x = $PHscale_factors->{"WFMPre:${channel}:XZEro"} + 
-         $PHscale_factors->{"WFMPre:${channel}:XINcr"} * 
+    $x = $PHscale_factors->{"WFMPre:${$PSchannel}:XZEro"} + 
+         $PHscale_factors->{"WFMPre:${$PSchannel}:XINcr"} * 
          ( $_ - $PHscale_factors->{"WFMPre:${channel}:PT_OFf"} );
-    $y = $PHscale_factors->{"WFMPre:${channel}:YZEro"} + 
-         $PHscale_factors->{"WFMPre:${channel}:YMUlt"} * 
-         ( $data[$_] - $PHscale_factors->{"WFMPre:${channel}:YOFf"} );
+    $y = $PHscale_factors->{"WFMPre:${$PSchannel}:YZEro"} + 
+         $PHscale_factors->{"WFMPre:${$PSchannel}:YMUlt"} * 
+         ( $data[$_] - $PHscale_factors->{"WFMPre:${$PSchannel}:YOFf"} );
 
-    print FILEout $x . "\t" . $y . "\n";
+    $answer .= $x . "\t" . $y . "\n";
+    print $x . "\t" . $y . "\n";
   }
   
-  close FILEout;
+  return $answer;
 }
 
 1;
