@@ -57,9 +57,9 @@ my $stdout_flush;
 
 
 #__ COMMAND LINE PARSER _______________________________________________________
-&usage() if( !defined @ARGV || $#ARGV != 1 );
+&usage() if( !defined @ARGV || $#ARGV != 0 );
 
-$channel = $ARGV[1];
+$channel = $ARGV[0];
 
 
 #__ READ CONFIGURATION FILES __________________________________________________
