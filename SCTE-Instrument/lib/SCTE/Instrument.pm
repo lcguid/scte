@@ -350,18 +350,18 @@ sub SerialWriteBuffered
   
   while( $timeout > 0 )
   { # it will read _up to_ 255 chars at a time
-    my ( $count , $saw ) = $dh->read( 255 ); 
+    my ( $count, $saw ) = $dh->read( 255 ); 
   
     if( $count > 0 )
     {
-      $buffer .= $saw;
+      $buffer = $saw;
       print MAGENTA "."; 
     }
     else { $timeout--; }
   }
   
-  if( $buffer ~! "" ) { print BOLD BLUE "[DONE]"; }
-  else { print BOLD RED "[FAILED]"; }
+  if( $buffer ~! "" ) { print BOLD BLUE " [DONE]"; }
+  else { print BOLD RED " [FAILED]"; }
 
   return $buffer;
 }
