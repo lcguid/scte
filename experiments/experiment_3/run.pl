@@ -81,7 +81,7 @@ $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
 $device_1->SetConfigurations( \%device_1_confs );
 
-my %scale_factors = (
+%scale_factors = (
   "WFMPre:${channel}:XZEro"  => "",
   "WFMPre:${channel}:XINcr"  => "",
   "WFMPre:${channel}:PT_OFf" => "",
