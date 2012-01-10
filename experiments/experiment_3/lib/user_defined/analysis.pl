@@ -33,7 +33,6 @@ sub AnalyseReadings
          ( $data[$_] - $PHscale_factors->{"WFMPre:${$PSchannel}:YOFf"} );
 
     $answer .= $x . "\t" . $y . "\n";
-    print $x . "\t" . $y . "\n";
   }
   
   return $answer;
