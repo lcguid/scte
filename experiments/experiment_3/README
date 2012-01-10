@@ -10,7 +10,7 @@ What is it?
   
   Note: this experiment has been designed to work with Tektronix oscilloscopes,   
   TDS-100, 200, 1000, and 2000 series. If you want to use another oscilloscope
-  you may have to alter all SCPI commands in this application. Pleas consult 
+  you may have to alter all SCPI commands in this application. Please consult 
   the programmers manual of your oscilloscope for a list of commands and
   functionalities.
 
@@ -31,7 +31,10 @@ Running the experiment
 
   In order to run the experiment simply execute:
   
-    perl run.pl
+    perl run.pl <channel_num>
+    
+  in which the channel_num parameter corresponds to the number of the channel
+  that you want to capture the signal.
 
 
 Installation and Dependencies
