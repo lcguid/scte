@@ -354,13 +354,13 @@ sub SerialWriteBuffered
   
     if( $count > 0 )
     {
-      $buffer = $saw;
+      $buffer .= $saw;
       print MAGENTA "."; 
     }
     else { $timeout--; }
   }
   
-  if( $buffer ~! "" ) { print BOLD BLUE " [DONE]"; }
+  if( $buffer !~ "" ) { print BOLD BLUE " [DONE]"; }
   else { print BOLD RED " [FAILED]"; }
 
   return $buffer;
