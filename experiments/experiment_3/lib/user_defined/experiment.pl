@@ -17,7 +17,7 @@
 
 sub RunExperiment
 {
-  my ( $PHconfs, $dev, $PSreadings, $PSchannel, $PHscale_factors ) = @_;
+  my ( $dev, $PSreadings, $PSchannel, $PHscale_factors ) = @_;
   
   $dev->Write( "ACQ:STATE STOP" );
   $dev->Write( "DATa:SOUrce $PSchannel" );
