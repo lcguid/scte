@@ -139,6 +139,10 @@ $device_1->CheckConfigurations();
   \%scale_factors
 );
 
+
+$device_1_readings = "13,6,3,2,-1,-9,-14,-19,-29,-35,-67,-1,-78,-62,
+-50,-31,-27,-7,0,12,29,39,45,43,41,47,41,38,33,26";
+
 &AnalyseReadings( \$device_1_readings, \$channel );
 
 &WriteData( \$output_file, \$device_1_readings );  
