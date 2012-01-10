@@ -10,7 +10,7 @@ What is it?
   
   Note: this experiment has been designed to work with Tektronix oscilloscopes,   
   TDS-100, 200, 1000, and 2000 series. If you want to use another oscilloscope
-  you may have to alter all SCPI commands in this application. Pleas consult 
+  you may have to alter all SCPI commands in this application. Please consult 
   the programmers manual of your oscilloscope for a list of commands and
   functionalities.
 
@@ -23,7 +23,7 @@ Experiment preparation
   1. connect an SCPI capable oscilloscope to an RS-232 port using a null 
      modem cable;
   2. configure the device specific information in
-     'experiments/experiment_3/etc/general.conf', parameters: 'DEVICE_1_*'
+     'experiments/experiment_4/etc/general.conf', parameters: 'DEVICE_1_*'
 
 
 Running the experiment
@@ -31,7 +31,10 @@ Running the experiment
 
   In order to run the experiment simply execute:
   
-    perl run.pl
+    perl run.pl <output_file>
+    
+  in which the parameter output_file corresponds to the desired output file 
+  name without extention.
 
 
 Installation and Dependencies

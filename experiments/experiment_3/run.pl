@@ -129,21 +129,17 @@ $device_1->CheckConfigurations();
 
 #__ EXPERIMENT  _______________________________________________________________
 
-&InitializeStorage( \%general_confs, \$output_file );
+&InitializeStorage( \%general_confs, \$output_file, \$file_name );
 
-&RunExperiment(
-  \%general_confs,
-  $device_1,
-  \$device_1_readings,
-  \$channel,
-  \%scale_factors
-);
+&RunExperiment( $device_1, \$device_1_readings );
 
 &AnalyseReadings( \$device_1_readings, \$channel );
 
 &WriteData( \$output_file, \$device_1_readings );  
 
 &CloseStorage( \$output_file );
+
+# open FILE , ">$ENV{PWD}/$file_name.pcx" or die "Can't open file for writing: $!" ;
 
 exit;
 

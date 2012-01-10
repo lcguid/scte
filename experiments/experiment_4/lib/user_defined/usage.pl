@@ -15,23 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #______________________________________________________________________________
 
-sub RunExperiment
+sub usage
 {
-  my ( $PHconfs, $dev, $PSreadings, $PSchannel, $PHscale_factors ) = @_;
-  
-  $dev->Write( "ACQ:STATE STOP" );
-  $dev->Write( "DATa:SOUrce $PSchannel" );
-
-  # These are the parameters as described on page 2-180 of the tektronix
-  # Osciloscope series TDS-100/200 programmer manual to convert the 
-  # acquired data to the usable values.
-  foreach( keys %$PHscale_factors )
-  {
-    $PHscale_factors->{$_} = $dev->Write( "${_}?" );
-  }
-
-  ${$PSreadings} = $dev->SerialWriteBuffered( "WFMPre?" );
-  ${$PSreadings} .= $dev->SerialWriteBuffered( "CURVe?" );
+  print "Usage: ./run.pl <output_file>\n";
+  print "  output_file : output file name to store the image.\n";
+  exit;
 }
 
 1;
