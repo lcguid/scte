@@ -132,7 +132,7 @@ $device_1->CheckConfigurations();
 &InitializeStorage( \%general_confs, \$output_file );
 
 &RunExperiment( 
-  \$device_1,
+  $device_1,
   \$device_1_readings,
   \$channel,
   \%scale_factors
