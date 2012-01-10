@@ -129,6 +129,8 @@ $device_1->CheckConfigurations();
 
 #__ EXPERIMENT  _______________________________________________________________
 
+&InitializeStorage( \%general_confs, \$output_file )
+
 &RunExperiment(
   \%general_confs,
   $device_1,
@@ -140,6 +142,8 @@ $device_1->CheckConfigurations();
 &AnalyseReadings( \$device_1_readings, \$channel );
 
 &WriteData( \$output_file, \$device_1_readings );  
+
+&CloseStorage( \$output_file )
 
 exit;
 
