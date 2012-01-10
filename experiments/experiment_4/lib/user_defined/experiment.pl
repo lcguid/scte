@@ -23,7 +23,7 @@ sub RunExperiment
   $dev->Write( "HARDCopy ABOrt" );
   
   # start capturing image data
-  ${$PSreadings} = $dev->WriteSerialBuffered("HARDCopy STARt\n") ;
+  ${$PSreadings} = $dev->SerialWriteBuffered("HARDCopy STARt\n") ;
 }
 
 1;
