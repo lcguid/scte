@@ -37,7 +37,7 @@ $Term::ANSIColor::AUTORESET = 1;
 #__ VARIABLE DECLARATIONS _____________________________________________________
 
 #__ for Configurations __
-my %general_confs; # my %confs;
+my %general_confs;
 my %device_1_confs;
 
 #__ for Devices __
@@ -131,7 +131,13 @@ $device_1->CheckConfigurations();
 
 &InitializeStorage( \%general_confs, \$output_file );
 
-&RunExperiment( $device_1, \$device_1_readings );
+&RunExperiment( 
+  \%general_confs,
+  \$device_1,
+  \$device_1_readings,
+  \$channel,
+  \%scale_factors
+);
 
 &AnalyseReadings( \$device_1_readings, \$channel );
 
