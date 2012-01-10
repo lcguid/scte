@@ -35,7 +35,7 @@ sub AnalyseReadings
     $answer .= $x . "\t" . $y . "\n";
   }
   
-  return $answer;
+  ${$PSreadings} = $answer;
 }
 
 1;
