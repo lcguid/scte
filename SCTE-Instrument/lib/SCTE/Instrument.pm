@@ -92,7 +92,7 @@ sub SetDevice
 
     if( ! -c $dev )
     {
-      die "ERROR [SetDevice( path ) ]: '$dev' should be a character device"
+      die "ERROR [SetDevice( path ) ]: '$dev' should be a character device";
     }
   }
   # else
