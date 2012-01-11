@@ -387,19 +387,19 @@ sub LANWrite
   use IO::Socket;
 
   # Initialize the socket
-  my $sock = new IO::Socket::INET(
+  my $socket = new IO::Socket::INET(
     PeerAddr => $self->{PEER_ADDRESS},
     PeerPort => $self->{PEER_PORT},  
     Proto => 'tcp'
   );
 
-  die "Socket Could not be created, Reason: $!\n" unless $sock;
+  die "Socket Could not be created, Reason: $!\n" unless $socket;
   
-  print $sock "$command\n";
+  print $socket "$command\n";
 
   select( undef , undef , undef , $self->{DELAY} );
 
-  $answer = <$sock>;
+  $answer = <$socket>;
   chomp( $answer );
   
   $socket->close();
