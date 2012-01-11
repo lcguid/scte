@@ -95,10 +95,10 @@ sub SetDevice
       die "ERROR [SetDevice( path ) ]: '$dev' should be a character device"
     }
   }
-  else
-  {
-    # Should I test something here ?!
-  }
+  # else
+  # {
+  #   # Should I test something here ?!
+  # }
   
   $self->{DEVICE} = $dev;
   
