@@ -61,6 +61,8 @@ sub new
   $self->{BUS} = undef;
   $self->{CONFIGURATIONS} = undef;
   $self->{DEVICE} = undef;
+  $self->{PEER_ADDRESS} = undef;
+  $self->{PEER_PORT} = 5025;
   $self->{DELAY} = 0.5;
   
   bless( $self, $class );
@@ -80,17 +82,24 @@ sub SetDevice
   
   if( @_ ) { $dev = shift; }
   else { die "ERROR [SetDevice( DEVICE )]: no DEVICE specified!"; }
-    
-  if( ! -r $dev or ! -w $dev )
+  
+  if( $dev ~= /\\dev\\/ )
   {
-    die "ERROR [SetDevice( path )]: '$dev' should be readable and writabel by user";
-  }
+    if( ! -r $dev or ! -w $dev )
+    {
+      die "ERROR [SetDevice( path )]: '$dev' should be readable and writable by user";
+    }
 
-  if( ! -c $dev )
+    if( ! -c $dev )
+    {
+      die "ERROR [SetDevice( path ) ]: '$dev' should be a character device"
+    }
+  }
+  else
   {
-    die "ERROR [SetDevice( path ) ]: '$dev' should be a character device"
+    # Should I test something here ?!
   }
-
+  
   $self->{DEVICE} = $dev;
   
   return $self->{DEVICE};
@@ -116,9 +125,9 @@ sub SetBUS
   if( @_ ) { $bus = shift; }
   else { die "ERROR [SetBus( BUS )]: no BUS specified!"; }
   
-  if( $bus !~ /(^RS-232$|^USB$)/ )
+  if( $bus !~ /(^RS-232$|^USB$|^LAN$)/ )
   {
-    die "ERROR [SetBUS( bus )]: bus should be one of 'RS-232' | 'USB'";
+    die "ERROR [SetBUS( bus )]: bus should be one of 'RS-232' | 'USB' | 'LAN'";
   }
   
   $self->{BUS} = $bus;
@@ -157,6 +166,56 @@ sub GetDelay
   my $self = shift;
   
   return $self->{DELAY};
+}
+
+=pod
+  SetPeerAddress() - set the network address of the instrument
+    - receive: IP address of hostname
+    - return : $self->{PEER_ADDRESS}
+=cut
+sub SetPeerAddress
+{
+  my $self = shift;
+  my $addr = undef;
+  
+  if( @_ ) { $addr = shift; }
+  else { die "ERROR [SetPeerAddress( ADDRESS )]: no network ADDRESS specified!"; }
+  
+  $self->{PEER_ADDRESS} = $addr;
+  
+  return $self->{PEER_ADDRESS};
+}
+
+sub GetPeerAddress
+{
+  my $self = shift;
+  
+  return $self->{PEER_ADDRESS};
+}
+
+=pod
+  SetPeerPortNum() - set the network port number of the instrument
+    - receive: port number
+    - return : $self->{PEER_PORT}
+=cut
+sub SetPeerPortNum
+{
+  my $self = shift;
+  my $port_num = undef;
+  
+  if( @_ ) { $port_num = shift; }
+  else { die "ERROR [SetPeerPortNum( PORT )]: no network PORT NUMBER specified!"; }
+  
+  $self->{PEER_PORT} = $port_num;
+  
+  return $self->{PEER_PORT};
+}
+
+sub GetPeerPortNum
+{
+  my $self = shift;
+  
+  return $self->{PEER_PORT};
 }
 
 
@@ -268,9 +327,11 @@ sub Write
   {
     die "ERROR [Write( msg )]: needs a message !";
   }
-  
+
+  $reply = $self->LANWrite( $message ) if( $self->{BUS} =~ /^LAN$/ );  
   $reply = $self->SerialWrite( $message ) if( $self->{BUS} =~ /^RS-232$/ );
   $reply = $self->USBWrite( $message ) if( $self->{BUS} =~ /^USB$/ );
+
   
   return $reply;
 }
@@ -307,6 +368,44 @@ sub SerialWrite
   return $answer;
 }
 
+
+=pod
+  LANWrite() - send a command to the device connected via ethernet and 
+               reads its response.
+    - receive: (1st arg) the command to be sent to the equipment;
+    - return : the content of the reply given by the equipment;
+=cut
+sub LANWrite
+{
+   my $self = shift;
+   my $command = undef;
+   my $answer = undef;
+
+   if( @_ ) { $command = shift; }
+   else { die "ERROR [SerialWrite( MESSAGE )]: no MESSAGE specified!"; }
+    
+  use IO::Socket;
+
+  # Initialize the socket
+  my $sock = new IO::Socket::INET(
+    PeerAddr => $self->{PEER_ADDRESS},
+    PeerPort => $self->{PEER_PORT},  
+    Proto => 'tcp'
+  );
+
+  die "Socket Could not be created, Reason: $!\n" unless $sock;
+  
+  print $sock "$command\n";
+
+  select( undef , undef , undef , $self->{DELAY} );
+
+  $answer = <$sock>;
+  chomp( $answer );
+  
+  $socket->close();
+  
+  return $answer;
+}
 
 =pod
   SerialWriteBuffered() - send a command to the device connected to the serial 
