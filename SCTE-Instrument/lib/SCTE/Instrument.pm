@@ -83,7 +83,7 @@ sub SetDevice
   if( @_ ) { $dev = shift; }
   else { die "ERROR [SetDevice( DEVICE )]: no DEVICE specified!"; }
   
-  if( $dev ~= /\\dev\\/ )
+  if( $dev =~ /\\dev\\/ )
   {
     if( ! -r $dev or ! -w $dev )
     {
