@@ -86,6 +86,11 @@ $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
 $device_1->SetConfigurations( \%device_1_confs );
 
+if( $general_confs{DEVICE_1_BUS} =~ /^LAN$/ )
+{
+  $device_1->SetPortNumber( $general_confs{DEVICE_1_PORT_NUMBER} );
+}
+
 $device_2 = SCTE::Instrument->new();
 
 $device_2->SetDevice( $general_confs{DEVICE_2_PATH} );
@@ -93,6 +98,10 @@ $device_2->SetBUS( $general_confs{DEVICE_2_BUS} );
 $device_2->SetDelay( $general_confs{DEVICE_2_DELAY} );
 $device_2->SetConfigurations( \%device_2_confs );
 
+if( $general_confs{DEVICE_2_BUS} =~ /^LAN$/ )
+{
+  $device_2->SetPortNumber( $general_confs{DEVICE_2_PORT_NUMBER} );
+}
 
 #__ Storage __
 $device_1_readings{CH1_Pk2Pk} = undef;
