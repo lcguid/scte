@@ -50,18 +50,19 @@ sub InitializeStorage
   if( ! -d $PHgeneral_confs->{OUTPUT_DIR} )
   {
     mkdir( $PHgeneral_confs->{OUTPUT_DIR} ) or 
-      die "\n\n[$PHgeneral_confs->{OUTPUT_DIR}]:$!\n\n";
-    mkdir( "$work_dir" ) or die "\n\n[$work_dir]:$!\n\n";
+    die "\n\n InitializeStorage() mkdir [$PHgeneral_confs->{OUTPUT_DIR}]:$!\n\n";
   }
-  elsif( ! -d $work_dir )
+  
+  if( ! -d $work_dir )
   {
-    mkdir( "$work_dir" ) or die "\n\n[$work_dir]:$!\n\n";
+    mkdir( "$work_dir" ) or
+    die "\n\n InitializeStorage() mkdir [$work_dir]:$!\n\n";
   }
   
   if( ! -d "$work_dir/rawdata" ) 
   {
     mkdir( "$work_dir/rawdata" ) or 
-      die "\n\n[$work_dir/rawdata]:$!\n\n";
+    die "\n\n InitializeStorage() mkdir [$work_dir/rawdata]:$!\n\n";
   }
 
   rename( $PHfiles->{ANALYSED}, "$PHfiles->{ANALYSED}.old" ) or 
