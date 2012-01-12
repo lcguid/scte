@@ -30,8 +30,11 @@ sub RunExperiment
     $PHscale_factors->{$_} = $dev->Write( "${_}?" );
   }
 
-  ${$PSreadings} = $dev->SerialWriteBuffered( "WFMPre?" );
-  ${$PSreadings} .= $dev->SerialWriteBuffered( "CURVe?" );
+  # ${$PSreadings} = $dev->SerialWriteBuffered( "WFMPre?" );
+  # ${$PSreadings} .= $dev->SerialWriteBuffered( "CURVe?" );
+  ${$PSreadings} = $dev->Write( "WFMPre?" );
+  ${$PSreadings} .= $dev->Write( "CURVe?" );
+  
 }
 
 1;
