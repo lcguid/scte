@@ -50,7 +50,7 @@ sub InitializeStorage
   if( ! -d $PHgeneral_confs->{OUTPUT_DIR} )
   {
     mkdir( $PHgeneral_confs->{OUTPUT_DIR} ) or 
-      die "\n\n[$PHgeneral_confs->{OUTPUT_DIR}]:$!\n\n";
+      die "\n\n InitializeStorage() mkdir [$PHgeneral_confs->{OUTPUT_DIR}]:$!\n\n";
     mkdir( "$work_dir" ) or die "\n\n[$work_dir]:$!\n\n";
   }
   elsif( ! -d $work_dir )
