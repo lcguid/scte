@@ -42,10 +42,10 @@ sub InitializeStorage
   my $work_dir = 
     "$PHgeneral_confs->{OUTPUT_DIR}/$PHgeneral_confs->{DEV_ID_UNDER_CAL}";
 
-  # determine the file name of the pre-analised data
+  # determine the file name of the pre-analysed data
   $PHfiles->{ANALYSED} = "${work_dir}/${file_name}.dat";
 
-  #determine the file name of the non analised data (raw data)
+  #determine the file name of the non analysed data (raw data)
   $PHfiles->{RAW_DATA} = "${work_dir}/rawdata/${file_name}.raw";
   
   if( ! -d $PHgeneral_confs->{OUTPUT_DIR} )
@@ -133,7 +133,12 @@ sub WriteFileHeaders
 =cut #_________________________________________________________________________
 sub WriteData
 {
-  my ( $PHfiles, $PHreadings, $PHreadings_avg, $PHreadings_sderr ) = @_;
+  my (
+    $PHfiles,
+    $PHreadings,
+    $PHreadings_avg,
+    $PHreadings_sderr
+  ) = @_;
 
   my @keys = ( 
     "CH1_Freq",
