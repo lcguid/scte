@@ -132,6 +132,7 @@ $device_1->CheckConfigurations();
 #__ EXPERIMENT CONFIGURATION __________________________________________________
 foreach( keys %device_1_readings )
 { 
+  print "\n" . $general_confs{READINGS_PER_POINT} . "\n";
   $device_1_readings{$_} = Math::GSL::Vector->new(
     $general_confs{READINGS_PER_POINT}
   );
