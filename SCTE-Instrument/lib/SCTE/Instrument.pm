@@ -372,7 +372,7 @@ sub LANWrite
   ) || die $@;
 
   $connection->write_request(
-   GET => "/?COMMAND=$message",
+   GET => "/?COMMAND=$command",
    'KeepAlive' => 10
   );
 
