@@ -49,7 +49,7 @@ sub RunExperiment
     $dev->Write( "MEASU:IMM:SOU CH2" );
     $dev->Write( "MEASU:IMM:TYP FREQ" );
 
-    do { $reading_num = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
+    do { $reading = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
  print "\n[3]READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH2_Freq}->set( [$reading_num], [$reading] );
     print "$reading\t";
