@@ -17,7 +17,7 @@
 
 sub AnalyseReadings
 {
-  my ( $PSreadings, $PSchannel, $PHscale_factors ) = @_;
+  my ( $PSreadings, $PHscale_factors ) = @_;
   my @data = split /,/, ${$PSreadings};
   my $answer = "";
   my $x;

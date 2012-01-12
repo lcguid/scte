@@ -82,12 +82,12 @@ $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
 $device_1->SetConfigurations( \%device_1_confs );
 
 %scale_factors = (
-  "WFMPre:${channel}:XZEro"  => "",
-  "WFMPre:${channel}:XINcr"  => "",
-  "WFMPre:${channel}:PT_OFf" => "",
-  "WFMPre:${channel}:YZEro"  => "",
-  "WFMPre:${channel}:YMUlt"  => "",
-  "WFMPre:${channel}:YOFf"   => "" 
+  "WFMPre:XZEro"  => "",
+  "WFMPre:XINcr"  => "",
+  "WFMPre:PT_OFf" => "",
+  "WFMPre:YZEro"  => "",
+  "WFMPre:YMUlt"  => "",
+  "WFMPre:YOFf"   => "" 
 );
 
 #__ Storage __
@@ -138,7 +138,7 @@ $device_1->CheckConfigurations();
   \%scale_factors
 );
 
-&AnalyseReadings( \$device_1_readings, \$channel );
+&AnalyseReadings( \$device_1_readings );
 
 &WriteData( \$output_file, \$device_1_readings );  
 
