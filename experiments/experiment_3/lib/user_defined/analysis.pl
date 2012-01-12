@@ -23,6 +23,12 @@ sub AnalyseReadings
   my $x;
   my $y;
 
+
+  foreach( keys %$PHscale_factors )
+  {
+    print "\n $_ -> $PHscale_factors->{$_}\n";
+  }
+
   foreach( 0 .. $#data )
   {   
     $x = $PHscale_factors->{"WFMPre:${$PSchannel}:XZEro"} + 

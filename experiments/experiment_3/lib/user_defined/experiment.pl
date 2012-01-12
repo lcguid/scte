@@ -30,11 +30,14 @@ sub RunExperiment
     $PHscale_factors->{$_} = $dev->Write( "${_}?" );
   }
 
+  # NOTE: if the serial port is being used, uncomment the next two lines AND
+  # comment the other (uncommented) two lines !!
   # ${$PSreadings} = $dev->SerialWriteBuffered( "WFMPre?" );
   # ${$PSreadings} .= $dev->SerialWriteBuffered( "CURVe?" );
   ${$PSreadings} = $dev->Write( "WFMPre?" );
   ${$PSreadings} .= $dev->Write( "CURVe?" );
-  
+
+  $dev->Write( "ACQ:STATE RUN" );  
 }
 
 1;
