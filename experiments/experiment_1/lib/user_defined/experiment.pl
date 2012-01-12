@@ -35,6 +35,7 @@ sub RunExperiment
     # repeats the acquisition if there was timming error
     do { $reading = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
     
+    print "READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH1_Freq}->set( [$reading_num], [$reading] );
     print "$reading\t";
     
