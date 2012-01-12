@@ -31,12 +31,12 @@ sub AnalyseReadings
 
   foreach( 0 .. $#data )
   {   
-    $x = $PHscale_factors->{"WFMPre:${$PSchannel}:XZEro"} + 
-         $PHscale_factors->{"WFMPre:${$PSchannel}:XINcr"} * 
-         ( $_ - $PHscale_factors->{"WFMPre:${channel}:PT_OFf"} );
-    $y = $PHscale_factors->{"WFMPre:${$PSchannel}:YZEro"} + 
-         $PHscale_factors->{"WFMPre:${$PSchannel}:YMUlt"} * 
-         ( $data[$_] - $PHscale_factors->{"WFMPre:${$PSchannel}:YOFf"} );
+    $x = $PHscale_factors->{"WFMPre:XZEro"} + 
+         $PHscale_factors->{"WFMPre:XINcr"} * 
+         ( $_ - $PHscale_factors->{"WFMPre:PT_OFf"} );
+    $y = $PHscale_factors->{"WFMPre:YZEro"} + 
+         $PHscale_factors->{"WFMPre:YMUlt"} * 
+         ( $data[$_] - $PHscale_factors->{"WFMPre:YOFf"} );
 
     $answer .= $x . "\t" . $y . "\n";
   }
