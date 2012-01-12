@@ -254,6 +254,15 @@ sub CheckConfigurations
   print RED "DEVICE";
   print YELLOW "."x(25 - length("DEVICE"));
   print BOLD GREEN $self->{DEVICE} . "\n";
+  
+  if( $self->{BUS} =~ /^LAN$/ )
+  {
+    print BOLD YELLOW "    * ";
+    print RED "PORT";
+    print YELLOW "."x(25 - length("PORT"));
+    print BOLD GREEN $self->{PORT} . "\n";    
+  }
+  
   print BOLD YELLOW "    * ";
   print RED "DELAY";
   print YELLOW "."x(25 - length("DELAY"));
