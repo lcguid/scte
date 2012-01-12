@@ -35,14 +35,12 @@ sub RunExperiment
     # repeats the acquisition if there was timming error
     do { $reading = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
     
-  print "\n[1]READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH1_Freq}->set( [$reading_num], [$reading] );
     print "$reading\t";
     
     $dev->Write( "MEASU:IMM:TYP PK2pk" );
 
     do { $reading = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
- print "\n[2]READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH1_Pk2Pk}->set( [$reading_num], [$reading] );
     print "$reading\t";
     
@@ -50,14 +48,12 @@ sub RunExperiment
     $dev->Write( "MEASU:IMM:TYP FREQ" );
 
     do { $reading = $dev->Write("MEASU:IMM:VAL?"); } until $reading ne "";
- print "\n[3]READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH2_Freq}->set( [$reading_num], [$reading] );
     print "$reading\t";
 
     $dev->Write( "MEASU:IMM:TYP PK2pk" );
 
     do { $reading = $dev->Write( "MEASU:IMM:VAL?"); } until $reading ne "";
-  print "\n[4]READING NUM: " . $reading_num . "\n";
     $PHreadings->{CH2_Pk2Pk}->set( [$reading_num], [$reading] );
     print "$reading\n";
 
