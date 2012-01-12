@@ -102,11 +102,10 @@ sub CloseStorage
 =cut #_________________________________________________________________________
 sub WriteFileHeaders
 {
-  my ( $PHfiles, $PHexp_infos ) = @_;
+  my ( $PHfiles ) = @_;
 
   select $PHfiles->{ANALYSED};
 
-  foreach( keys %$PHexp_infos ) { print "$_ = $PHexp_infos->{$_}\n"; }
   print "#" . "_" x 46 . "\n#\n";
   print "# COL1 = Channel_TypeOfMeasurement\n";
   print "# COL2 = Mean value\n";
@@ -115,7 +114,6 @@ sub WriteFileHeaders
 
   select $PHfiles->{RAW_DATA};  
 
-  foreach( keys %$PHexp_infos ) { print "$_ = $PHexp_infos->{$_}\n"; }
   print "#" . "_" x 46 . "\n#\n";
   print "# COL1 =  Channel_TypeOfMeasurement\n";
   print "# COL2 .. COLN = measurements\n";
