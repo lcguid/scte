@@ -39,7 +39,8 @@ sub InitializeStorage
                   "freq_$PHexperiment_confs->{FREQ_CAL}";
 
   # determine the work directory (where the files will be stored).   
-  my $work_dir = "$PHgeneral_confs->{OUTPUT_DIR}/$PHexperiment_confs->{DEV_ID_UNDER_CAL}";
+  my $work_dir = 
+    "$PHgeneral_confs->{OUTPUT_DIR}/$PHgeneral_confs->{DEV_ID_UNDER_CAL}";
 
   # determine the file name of the pre-analised data
   $PHfiles->{ANALYSED} = "${work_dir}/${file_name}.dat";

@@ -161,6 +161,7 @@ do
 
   open( GNUPLOT, "|$general_confs{PLOT_APP_PATH} -p" );
 print GNUPLOT <<EOPLOT;
+set term dumb
 unset key 
 set xlabel "Input Signal (V)"
 set ylabel "Output Signal (V)"
