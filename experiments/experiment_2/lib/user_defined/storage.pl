@@ -27,19 +27,19 @@
 =cut #_________________________________________________________________________
 sub InitializeStorage
 {
-  my ( $PHgeneral_confs , $PHexperiment_confs, $PHfiles ) = @_;
+  my ( $PHgeneral_confs, $PHfiles ) = @_;
 
   use POSIX qw(strftime);
   my $date = strftime "%Y%m%d-%H%M" , localtime;
   my $analysed_file_name = undef; 
 
   # generate output file names
-  my $file_name = "$date-$PHexperiment_confs->{DEV_UNDER_CAL}-" .
-                  "output_$PHexperiment_confs->{OUTPUT_UNDER_CAL}-" . 
-                  "freq_$PHexperiment_confs->{FREQ_CAL}";
+  my $file_name = "$date-$PHgeneral_confs->{DEV_UNDER_CAL}-" .
+                  "output_$PHgeneral_confs->{OUTPUT_UNDER_CAL}-" . 
+                  "freq_$PHgeneral_confs->{FREQ_CAL}";
 
   # determine the work directory (where the files will be stored).   
-  my $work_dir = "$PHgeneral_confs->{OUTPUT_DIR}/$PHexperiment_confs->{DEV_UNDER_CAL}";
+  my $work_dir = "$PHgeneral_confs->{OUTPUT_DIR}/$PHgeneral_confs->{DEV_UNDER_CAL}";
 
   # determine the file name of the pre-analised data
   $PHfiles->{ANALYSED} = "${work_dir}/${file_name}.dat";
