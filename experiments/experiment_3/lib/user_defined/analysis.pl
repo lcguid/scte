@@ -32,6 +32,7 @@ sub AnalyseReadings
          $PHscale_factors->{"WFMPre:YMUlt"} * 
          ( $data[$_] - $PHscale_factors->{"WFMPre:YOFf"} );
 
+    print $x . "\t" . $y . "\n";
     $answer .= $x . "\t" . $y . "\n";
   }
   
