@@ -53,10 +53,6 @@ sub InitializeStorage
       die "\n\n InitializeStorage() mkdir [$PHgeneral_confs->{OUTPUT_DIR}]:$!\n\n";
     mkdir( "$work_dir" ) or die "\n\n[$work_dir]:$!\n\n";
   }
-  elsif( ! -d $work_dir )
-  {
-    mkdir( "$work_dir" ) or die "\n\n[$work_dir]:$!\n\n";
-  }
   
   if( ! -d "$work_dir/rawdata" ) 
   {
