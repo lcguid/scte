@@ -36,7 +36,6 @@ $Term::ANSIColor::AUTORESET = 1;
 
 
 #__ VARIABLE DECLARATIONS _____________________________________________________
-
 #__ for Configurations __
 my %general_confs;
 my %device_1_confs;
@@ -58,7 +57,6 @@ my $stdout_flush;
 
 
 #__ READ CONFIGURATION FILES __________________________________________________
-
 &ReadConfigurations( "etc/general.conf", \%general_confs );
 &ReadConfigurations(
   "etc/$general_confs{DEVICE_1_CONFIGURATION}",
@@ -74,6 +72,12 @@ $device_1 = SCTE::Instrument->new();
 $device_1->SetDevice( $general_confs{DEVICE_1_PATH} );
 $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
+
+if( $general_confs{DEVICE_1_BUS} =~ /^LAN$/ )
+{
+  $device_1->SetPortNumber( $general_confs{DEVICE_1_PORT_NUMBER} );
+}
+
 $device_1->SetConfigurations( \%device_1_confs );
 
 #__ Storage __
@@ -103,7 +107,6 @@ select( $stdout_flush );
 
 
 #__ COMMUNICATION TESTS _______________________________________________________
-
 print BOLD BLUE "\nTesting communication with Device 1: ";
 
 {
@@ -115,7 +118,6 @@ print BOLD BLUE "\nTesting communication with Device 1: ";
 
 
 #__ DEVICE CONFIGURATION ______________________________________________________
-
 print BOLD BLUE "Configuring Device 1: ";
 
 # Stops printing the header of each command
@@ -137,7 +139,6 @@ foreach( keys %device_1_readings )
 
 
 #__ EXPERIMENT  _______________________________________________________________
-
 my $file_to_plot = &InitializeStorage( \%general_confs, \%files ); 
 &WriteFileHeaders( \%files );
 

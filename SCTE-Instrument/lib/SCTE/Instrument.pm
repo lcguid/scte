@@ -61,8 +61,7 @@ sub new
   $self->{BUS} = undef;
   $self->{CONFIGURATIONS} = undef;
   $self->{DEVICE} = undef;
-  $self->{PEER_ADDRESS} = undef;
-  $self->{PEER_PORT} = 5025;
+  $self->{PORT} = 80;
   $self->{DELAY} = 0.5;
   
   bless( $self, $class );
@@ -169,53 +168,28 @@ sub GetDelay
 }
 
 =pod
-  SetPeerAddress() - set the network address of the instrument
-    - receive: IP address of hostname
-    - return : $self->{PEER_ADDRESS}
-=cut
-sub SetPeerAddress
-{
-  my $self = shift;
-  my $addr = undef;
-  
-  if( @_ ) { $addr = shift; }
-  else { die "ERROR [SetPeerAddress( ADDRESS )]: no network ADDRESS specified!"; }
-  
-  $self->{PEER_ADDRESS} = $addr;
-  
-  return $self->{PEER_ADDRESS};
-}
-
-sub GetPeerAddress
-{
-  my $self = shift;
-  
-  return $self->{PEER_ADDRESS};
-}
-
-=pod
-  SetPeerPortNum() - set the network port number of the instrument
+  SetPortNumber() - set the network port number of the instrument
     - receive: port number
-    - return : $self->{PEER_PORT}
+    - return : $self->{PORT}
 =cut
-sub SetPeerPortNum
+sub SetPortNumber
 {
   my $self = shift;
   my $port_num = undef;
   
   if( @_ ) { $port_num = shift; }
-  else { die "ERROR [SetPeerPortNum( PORT )]: no network PORT NUMBER specified!"; }
+  else { die "ERROR [SetPortNum( PORT )]: no network PORT NUMBER specified!"; }
   
-  $self->{PEER_PORT} = $port_num;
+  $self->{PORT} = $port_num;
   
-  return $self->{PEER_PORT};
+  return $self->{PORT};
 }
 
-sub GetPeerPortNum
+sub GetPortNum
 {
   my $self = shift;
   
-  return $self->{PEER_PORT};
+  return $self->{PORT};
 }
 
 
@@ -377,35 +351,50 @@ sub SerialWrite
 =cut
 sub LANWrite
 {
-   my $self = shift;
-   my $command = undef;
-   my $answer = undef;
+  my $self = shift;
+  my $final_answer = undef;
+  my $buffer = "";
+  my $command = undef;
+  my $connection = undef;
 
-   if( @_ ) { $command = shift; }
-   else { die "ERROR [SerialWrite( MESSAGE )]: no MESSAGE specified!"; }
-    
-  use IO::Socket;
+  if( @_ )
+  {
+    $command = shift;
+    # HTTP GET queries have %20 instead of blank spaces.
+    $command =~ s/ /%20/g;
+  }
+  else { die "ERROR [SerialWrite( MESSAGE )]: no MESSAGE specified!"; }
 
-  # Initialize the socket
-  my $socket = new IO::Socket::INET(
-    PeerAddr => $self->{PEER_ADDRESS},
-    PeerPort => $self->{PEER_PORT},  
-    Proto => 'tcp'
+  use Net::HTTP;
+
+  $connection = Net::HTTP->new(
+    Host => "$self->{DEVICE}:$self->{PORT}" 
+  ) || die $@;
+
+  $connection->write_request(
+   GET => "/?COMMAND=$message",
+   'KeepAlive' => 10
   );
 
-  die "Socket Could not be created, Reason: $!\n" unless $socket;
-  
-  print $socket "$command\n";
+  while( 1 )
+  {
+    my $buf;
+    my $n = $s->read_entity_body( $buf, 1024 );
+    die "LANWrite() - Read failed: $!" unless defined $n;
+    
+    $buf =~ s/\r//g;
+    $buffer .= $buf;
 
-  select( undef , undef , undef , $self->{DELAY} );
+    last unless $n;
+  }
 
-  $answer = <$socket>;
-  chomp( $answer );
-  
-  $socket->close();
-  
-  return $answer;
+  my @answer = split /\n/, $buffer;
+
+  if( $#answer == 5 ) { $final_answer = $answer[5]; }
+   
+  return $final_answer;
 }
+
 
 =pod
   SerialWriteBuffered() - send a command to the device connected to the serial 
