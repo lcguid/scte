@@ -379,7 +379,7 @@ sub LANWrite
   while( 1 )
   {
     my $buf;
-    my $n = $s->read_entity_body( $buf, 1024 );
+    my $n = $connection->read_entity_body( $buf, 1024 );
     die "LANWrite() - Read failed: $!" unless defined $n;
     
     $buf =~ s/\r//g;
