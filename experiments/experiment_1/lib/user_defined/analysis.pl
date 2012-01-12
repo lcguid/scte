@@ -15,10 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #______________________________________________________________________________
 
-format ANALYSIS_STDOUT =
- @<<<<<<<< = @>>>>>>>>>>>>> +- @<<<<<<<<<<<<<
- $_ ,        $avg,             $sderr
-.
+
 
 sub AnalyseReadings 
 {
@@ -53,6 +50,9 @@ sub AnalyseReadings
 
 }
 
-
+format ANALYSIS_STDOUT =
+ @<<<<<<<< = @>>>>>>>>>>>>> +- @<<<<<<<<<<<<<
+ $_ ,        $avg,             $sderr
+.
 
 1;
