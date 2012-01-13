@@ -152,9 +152,5 @@ plot "$file_to_plot"
 EOPLOT
   close(PLOTAPP);	
 
-  print "\n-> Continue[Y/n]? ";
-  
-} while <STDIN> !~ /^n$/;
-
 exit;
 
