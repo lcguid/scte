@@ -79,6 +79,12 @@ $device_1 = SCTE::Instrument->new();
 $device_1->SetDevice( $general_confs{DEVICE_1_PATH} );
 $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
+
+if( $general_confs{DEVICE_1_BUS} =~ /^LAN$/ )
+{
+  $device_1->SetPortNumber( $general_confs{DEVICE_1_PORT_NUMBER} );
+}
+
 $device_1->SetConfigurations( \%device_1_confs );
 
 %scale_factors = (

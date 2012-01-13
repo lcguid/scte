@@ -83,6 +83,12 @@ $device_1 = SCTE::Instrument->new();
 $device_1->SetDevice( $general_confs{DEVICE_1_PATH} );
 $device_1->SetBUS( $general_confs{DEVICE_1_BUS} );
 $device_1->SetDelay( $general_confs{DEVICE_1_DELAY} );
+
+if( $general_confs{DEVICE_1_BUS} =~ /^LAN$/ )
+{
+  $device_1->SetPortNumber( $general_confs{DEVICE_1_PORT_NUMBER} );
+}
+
 $device_1->SetConfigurations( \%device_1_confs );
 
 #__ Storage __
@@ -125,7 +131,9 @@ $device_1->CheckConfigurations();
 &InitializeStorage( \%general_confs, \$output_file, \$file_name );
 
 &RunExperiment( $device_1, \$device_1_readings );
+
 $device_1_readings = "";
+
 &WriteData( \$output_file, \$device_1_readings );  
 
 &CloseStorage( \$output_file );
