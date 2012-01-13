@@ -138,7 +138,7 @@ $device_1->CheckConfigurations();
   \%scale_factors
 );
 
-&AnalyseReadings( \$device_1_readings );
+&AnalyseReadings( \$device_1_readings, \%scale_factors );
 
 &WriteData( \$output_file, \$device_1_readings );  
 
