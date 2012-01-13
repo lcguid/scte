@@ -24,7 +24,7 @@ sub RunExperiment
   
   # start capturing image data
   # ${$PSreadings} = $dev->SerialWriteBuffered("HARDCopy STARt\n") ;
-  ${$PSreadings} = $dev->Write("HARDCopy STARt\n") ;
+  ${$PSreadings} = $dev->Write("HARDCopy STARt") ;
 }
 
 1;
