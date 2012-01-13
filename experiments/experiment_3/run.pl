@@ -142,6 +142,18 @@ $device_1->CheckConfigurations();
 
 &WriteData( \$output_file, \$device_1_readings );  
 
+  open( PLOTPP, "|$general_confs{PLOT_APP_PATH} -p" );
+print PLOTAPP <<EOPLOT;
+set term dumb
+unset key 
+plot "$file_to_plot"
+EOPLOT
+  close(PLOTAPP);	
+
+  print "\n-> Continue[Y/n]? ";
+  
+} while <STDIN> !~ /^n$/;
+
 &CloseStorage( \$output_file );
 
 exit;

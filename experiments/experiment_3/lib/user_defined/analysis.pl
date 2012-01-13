@@ -30,10 +30,6 @@ sub AnalyseReadings
          ( $_ - $PHscale_factors->{"WFMPre:PT_OFf"} );
          
          
-    print $PHscale_factors->{"WFMPre:XZEro"}; #+ 
-      # $PHscale_factors->{"WFMPre:XINcr"} * 
-      # ( $_ - $PHscale_factors->{"WFMPre:PT_OFf"} );
-         
     $y = $PHscale_factors->{"WFMPre:YZEro"} + 
          $PHscale_factors->{"WFMPre:YMUlt"} * 
          ( $data[$_] - $PHscale_factors->{"WFMPre:YOFf"} );
