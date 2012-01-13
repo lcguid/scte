@@ -144,7 +144,7 @@ my $file_to_plot = &InitializeStorage( \%general_confs, \$output_file );
 
 &CloseStorage( \$output_file );
 
-  open( PLOTPP, "|$general_confs{PLOT_APP_PATH} -p" );
+  open( PLOTAPP, "|$general_confs{PLOT_APP_PATH} -p" );
 print PLOTAPP <<EOPLOT;
 set term dumb
 unset key 
