@@ -46,6 +46,8 @@ sub InitializeStorage
   $file_name = $work_dir . $file_name;
 
   open ${$PSfile}, ">$file_name" or die "\n\n[$file_name]:$!\n\n";
+  
+  return $file_name;
 }
 
 sub WriteData

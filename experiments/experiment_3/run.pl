@@ -129,7 +129,7 @@ $device_1->CheckConfigurations();
 
 #__ EXPERIMENT  _______________________________________________________________
 
-&InitializeStorage( \%general_confs, \$output_file );
+my $file_to_plot = &InitializeStorage( \%general_confs, \$output_file );
 
 &RunExperiment( 
   $device_1,
@@ -142,6 +142,8 @@ $device_1->CheckConfigurations();
 
 &WriteData( \$output_file, \$device_1_readings );  
 
+&CloseStorage( \$output_file );
+
   open( PLOTPP, "|$general_confs{PLOT_APP_PATH} -p" );
 print PLOTAPP <<EOPLOT;
 set term dumb
@@ -153,8 +155,6 @@ EOPLOT
   print "\n-> Continue[Y/n]? ";
   
 } while <STDIN> !~ /^n$/;
-
-&CloseStorage( \$output_file );
 
 exit;
 

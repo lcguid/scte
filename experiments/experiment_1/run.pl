@@ -160,15 +160,15 @@ do
     \%device_1_readings_sderr
   );
 
-  open( GNUPLOT, "|$general_confs{PLOT_APP_PATH} -p" );
-print GNUPLOT <<EOPLOT;
+  open( PLOTAPP, "|$general_confs{PLOT_APP_PATH} -p" );
+print PLOTAPP <<EOPLOT;
 set term dumb
 unset key 
 set xlabel "Input Signal (V)"
 set ylabel "Output Signal (V)"
 plot "$file_to_plot" using 1:5:(sqrt(\$2*\$2+\$6*\$6)) with yerrorbars
 EOPLOT
-  close(GNUPLOT);	
+  close(PLOTAPP);	
 
   print "\n-> Continue[Y/n]? ";
   
