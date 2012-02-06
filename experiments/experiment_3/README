@@ -20,7 +20,8 @@ Experiment preparation
 
   The experiment preparation comprises of 2 steps:
   
-  1. connect an SCPI capable oscilloscope to the network and configure it;
+  1. connect an SCPI capable oscilloscope to the network and configure it's
+     IP address, and network port number;
   2. configure the device specific information in
      'experiments/experiment_3/etc/general.conf', parameters: 'DEVICE_1_*'
 

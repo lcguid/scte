@@ -1,4 +1,4 @@
-#  Copyright 2004-2011 Luiz C. Mostaço-Guidolin
+#  Copyright 2004-2012 Luiz C. Mostaço-Guidolin
 #  
 #  This file is part of SCTE.
 #
@@ -44,7 +44,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '3.0.0';
+our $VERSION = '3.1.0';
 
 $Term::ANSIColor::AUTORESET = 1;
 
@@ -513,53 +513,33 @@ sub PrintTitle
 __END__
 
 
-# SCTE Documentation
+# SCTE Brief Documentation
 
 =head1 NAME
 
-SCTE::Instrument - Perl extension for blah blah blah
+SCTE::Instrument - Perl module to communicate with test instruments
 
 =head1 SYNOPSIS
 
   use SCTE::Instrument;
-  blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for SCTE::Instrument, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
-
-Blah blah blah.
-
-=head2 EXPORT
-
-None by default.
-
-
+SCTE::Instrument module provides an abstraction layer for communication with
+test instruments via RS-232, USB, and Ehternet (LAN) ports.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+For more information, please consult: http://code.google.com/p/scte
 
 =head1 AUTHOR
 
-Luiz Guidolin, E<lt>lcguid@wp.shawcable.netE<gt>
+Luiz C. Mostaço-Guidolin, E<lt>lm.guidolin@gmail.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by Luiz Guidolin
+Copyright (C) 2004-2012 by Luiz C. Mostaço-Guidolin
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.12.3 or,
-at your option, any later version of Perl 5 you may have available.
-
+This library is free software distributed under GPL version 3.
 
 =cut

@@ -5,10 +5,10 @@ What is it?
 -----------
 
   SCTE is a bundle of Perl scripts and a library, that aims to be a simple, yet
-  powerful, data aquisition system. It is designed to control instruments, such 
+  powerful, data acquisition system. It is designed to control instruments, such 
   as oscilloscopes and signal generators, that use the SCPI programming 
-  language [1] for communication, and are interfaced through the USB, and
-  RS-232 (serial) ports.
+  language [1] for communication, and are interfaced through one of USB, Ethernet 
+  (LAN), and RS-232 (serial) buses.
 
   [1] SCPI - Standard Commands for Programmable Instruments.
       http://www.ivifoundation.org/scpi/default.aspx
@@ -35,8 +35,8 @@ SCTE Components
   SCTE is comprised of two parts: SCTE-Instrument, and experiments.
 
   o 'SCTE-Instrument' is a Perl module that controls and interfaces instruments
-    via USB or RS-232 ports. It requires installation and is necessary in order
-    to run the 'experiments'.
+    via USB, LAN, and RS-232 ports. It requires installation and is necessary in 
+    order to run the 'experiments'.
 
   o 'experiments' is a directory containing two experiment examples (sub-
     directories experiment_1 and experiment_2) on how to use SCTE-Instrument 

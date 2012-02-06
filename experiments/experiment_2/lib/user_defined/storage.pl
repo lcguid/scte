@@ -1,6 +1,6 @@
 ##______________________________________________________________________________ 
 #
-# Copyright 2004-2011 Luiz C. Mostaço-Guidolin
+# Copyright 2004-2012 Luiz C. Mostaço-Guidolin
 # 
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software

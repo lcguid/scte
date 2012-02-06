@@ -1,13 +1,13 @@
              SCTE - Software for Controlling Testing Equipment
-                     -- SCTE-Instrument version 3.0.0 --
+                     -- SCTE-Instrument version 3.1.0 --
 
 
 What is it?
 -----------
 
   SCTE::Instrument is the Perl module, part of the SCTE bundle, and provides
-  an interface to testing instruments connected through serial (RS-232), or USB
-  ports.
+  an interface to testing instruments connected through serial (RS-232), USB,
+  or Ethernet (LAN) ports.
 
 
 Dependencies
@@ -17,6 +17,7 @@ Dependencies
 
   o Term::ANSIColor => 2.02
   o Device::SerialPort => 1.04
+  o Net::HETTP => 6.02
 
   You can install these modules directly from CPAN [1]. For instructions on how
   to install Perl modules like these, see 
@@ -30,7 +31,7 @@ Installation
 ------------
 
 
-  SCTE::Instruments depends on other two libraries that must be present prior
+  SCTE::Instruments depends on other three libraries that must be present prior
   the installation (see Dependencies section for more details).
 
   After installing all the dependencies, you can install this module by typing

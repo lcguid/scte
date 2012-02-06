@@ -12,10 +12,10 @@ What is it?
   the Tokamak TCABR [1,2], such as Rogowskii coils, and RF signal multipliers.
   
   Note: this experiment has been designed to work with Tektronix oscilloscopes,   
-  TDS-100, 200, 1000, and 2000 series. If you want to use another oscilloscope
-  you may have to alter all SCPI commands in this application. Pleas consult 
-  the programmers manual of your oscilloscope for a list of commands and
-  functionalities.
+  TDS-100, 200, 1000, 2000, and 3000 series. If you want to use another 
+  oscilloscope you may have to alter all SCPI commands in this application. 
+  Please consult the programmers manual of your oscilloscope for a list of 
+  commands and functionalities.
 
 
 Experiment preparation
