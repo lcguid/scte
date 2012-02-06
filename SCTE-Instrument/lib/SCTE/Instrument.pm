@@ -69,11 +69,11 @@ sub new
   return $self;
 }
 
-=pod
-  SetDevice - set the device path
-    - receive: path to the device file
-    - return : $self->{DEVICE}
-=cut
+#______________________________________________________________________________
+# SetDevice - set the device path
+#   - receive: path to the device file
+#   - return : $self->{DEVICE}
+#______________________________________________________________________________
 sub SetDevice
 {
   my $self = shift;
@@ -111,11 +111,11 @@ sub GetDevice
   return $self->{DEVICE};
 }
 
-=pod
-  SetBUS() - set BUS type of the instrument
-    - receive: string, RS-232 or USB
-    - return : $self->{BUS}
-=cut
+#______________________________________________________________________________
+# SetBUS() - set BUS type of the instrument
+#   - receive: string, RS-232 or USB
+#   - return : $self->{BUS}
+#______________________________________________________________________________
 sub SetBUS
 {
   my $self = shift;
@@ -141,12 +141,12 @@ sub GetBUS
   return $self->{BUS};
 }
 
-=pod
-  SetDelay - set the amount of delay between sending a command to the device and
-             reading its response
-    - receive: a double corresponding to the amount of delay in seconds
-    - return : $self->{DELAY}
-=cut
+#______________________________________________________________________________
+# SetDelay - set the amount of delay between sending a command to the device and
+#            reading its response
+#   - receive: a double corresponding to the amount of delay in seconds
+#   - return : $self->{DELAY}
+#______________________________________________________________________________
 sub SetDelay
 {
   my $self = shift;
@@ -167,11 +167,11 @@ sub GetDelay
   return $self->{DELAY};
 }
 
-=pod
-  SetPortNumber() - set the network port number of the instrument
-    - receive: port number
-    - return : $self->{PORT}
-=cut
+#______________________________________________________________________________
+# SetPortNumber() - set the network port number of the instrument
+#   - receive: port number
+#   - return : $self->{PORT}
+#______________________________________________________________________________
 sub SetPortNumber
 {
   my $self = shift;
@@ -193,20 +193,20 @@ sub GetPortNum
 }
 
 
-=pod
-  SetConfiguration() - load the configuration parameters to the device object
-    - receive: pointer to a hash containing the SCPI command as key and value
-               to be set as value of the hash
-    - return : nothing
-    - small example:
-    
-    my %params = (
-      "ACQ:MOD"    => "SAM",  # ACQUIRE -> MODE = SAMPLE
-      "ACQ:NUMAV"  => "128",  # ACQUIRE -> AVERAGE NUMBER = 128
-    );
-    
-    $device->SetConfigurations( \%params );
-=cut
+#______________________________________________________________________________
+# SetConfiguration() - load the configuration parameters to the device object
+#   - receive: pointer to a hash containing the SCPI command as key and value
+#              to be set as value of the hash
+#   - return : nothing
+#   - small example:
+#   
+#   my %params = (
+#     "ACQ:MOD"    => "SAM",  # ACQUIRE -> MODE = SAMPLE
+#     "ACQ:NUMAV"  => "128",  # ACQUIRE -> AVERAGE NUMBER = 128
+#   );
+#   
+#   $device->SetConfigurations( \%params );
+#______________________________________________________________________________
 sub SetConfigurations
 {
   my $self = shift;
@@ -221,9 +221,9 @@ sub SetConfigurations
   return $self->{CONFIGURATIONS}
 }
 
-=pod
-  Configure - send configuration parameters to the device
-=cut
+#______________________________________________________________________________
+# Configure - send configuration parameters to the device
+#______________________________________________________________________________
 sub Configure
 {
   my $self = shift;
@@ -234,12 +234,12 @@ sub Configure
   }
 }
 
-=pod
-  CheckConfigurations() - queries the device for its configuration parameters and
-            prints to STDOUT the read parameters and the default parameters.
-    - receive: nothing
-    -  return: nothing
-=cut
+#______________________________________________________________________________
+# CheckConfigurations() - queries the device for its configuration parameters and
+#           prints to STDOUT the read parameters and the default parameters.
+#   - receive: nothing
+#   -  return: nothing
+#______________________________________________________________________________
 sub CheckConfigurations
 {
   my $self = shift;
@@ -286,11 +286,11 @@ sub CheckConfigurations
   print BOLD BLUE "_" x 70 . "\n";
 }
 
-=pod
-  Write() - send messages to the device
-    - receive: (1st arg) the message to be sent to the device;
-    - return : the response to the message sent to the instrument
-=cut
+#______________________________________________________________________________
+  # Write() - send messages to the device
+  #   - receive: (1st arg) the message to be sent to the device;
+  #   - return : the response to the message sent to the instrument
+#______________________________________________________________________________
 sub Write
 {
   my $self = shift;
@@ -319,12 +319,12 @@ sub Write
   return $reply;
 }
 
-=pod
-  SerialWrite() - send a command to the device connected to the serial port and 
-                  reads its response.
-    - receive: (1st arg) the command to be sent to the equipment;
-    - return : the content of the reply given by the equipment;
-=cut
+#______________________________________________________________________________
+# SerialWrite() - send a command to the device connected to the serial port and 
+#                 reads its response.
+#   - receive: (1st arg) the command to be sent to the equipment;
+#   - return : the content of the reply given by the equipment;
+#______________________________________________________________________________
 sub SerialWrite
 {
    my $self = shift;
@@ -351,13 +351,12 @@ sub SerialWrite
   return $answer;
 }
 
-
-=pod
-  LANWrite() - send a command to the device connected via ethernet and 
-               reads its response.
-    - receive: (1st arg) the command to be sent to the equipment;
-    - return : the content of the reply given by the equipment;
-=cut
+#______________________________________________________________________________
+# LANWrite() - send a command to the device connected via ethernet and 
+#              reads its response.
+#   - receive: (1st arg) the command to be sent to the equipment;
+#   - return : the content of the reply given by the equipment;
+#______________________________________________________________________________
 sub LANWrite
 {
   my $self = shift;
@@ -404,15 +403,14 @@ sub LANWrite
   return $final_answer;
 }
 
-
-=pod
-  SerialWriteBuffered() - send a command to the device connected to the serial 
-                  port and reads its response and keep read until timeout is 
-                  reached.
-    - receive: the command (that returns more tha 255 chars as response) 
-               to be sent to the equipment;
-    - return : the content of the reply given by the equipment;
-=cut
+#______________________________________________________________________________
+# SerialWriteBuffered() - send a command to the device connected to the serial 
+#                 port and reads its response and keep read until timeout is 
+#                 reached.
+#   - receive: the command (that returns more tha 255 chars as response) 
+#              to be sent to the equipment;
+#   - return : the content of the reply given by the equipment;
+#______________________________________________________________________________
 sub SerialWriteBuffered
 {
   my $self = shift;
@@ -460,13 +458,12 @@ sub SerialWriteBuffered
   return $buffer;
 }
 
-
-=pod
-  USBWrite() - send a command to the device connected to the serial port and 
-                  reads its response.
-    - receive: (1st arg) the command to be sent to the equipment;
-    - return : the content of the reply given by the equipment;
-=cut
+#______________________________________________________________________________
+# USBWrite() - send a command to the device connected to the serial port and 
+#                 reads its response.
+#   - receive: (1st arg) the command to be sent to the equipment;
+#   - return : the content of the reply given by the equipment;
+#______________________________________________________________________________
 sub USBWrite
 {
   my $self = shift;
@@ -493,11 +490,11 @@ sub USBWrite
   return $answer;
 }
 
-=pod 
- PrintTitle() - print the name and version of this application to STDOUT
-  - receive: nothing
-  - return : nothing
-=cut
+#______________________________________________________________________________
+# PrintTitle() - print the name and version of this application to STDOUT
+# - receive: nothing
+# - return : nothing
+#______________________________________________________________________________
 sub PrintTitle
 {
   system( "clear" );
