@@ -198,7 +198,7 @@ sub GetPortNum
     - receive: pointer to a hash containing the SCPI command as key and value
                to be set as value of the hash
     - return : nothing
-    - example:
+    - small example:
     
     my %params = (
       "ACQ:MOD"    => "SAM",  # ACQUIRE -> MODE = SAMPLE
@@ -534,11 +534,11 @@ For more information, please consult: http://code.google.com/p/scte
 
 =head1 AUTHOR
 
-Luiz C. Mostaço-Guidolin, E<lt>lm.guidolin@gmail.comE<gt>
+Luiz C. Mostaco-Guidolin, E<lt>lm.guidolin@gmail.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2004-2012 by Luiz C. Mostaço-Guidolin
+Copyright (C) 2004-2012 by Luiz C. Mostaco-Guidolin
 
 This library is free software distributed under GPL version 3.
 
