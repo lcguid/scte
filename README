@@ -13,20 +13,11 @@ What is it?
   [1] SCPI - Standard Commands for Programmable Instruments.
       http://www.ivifoundation.org/scpi/default.aspx
 
-
-The Latest Version
-------------------
-
-  Details of the latest version can be found on the project page at
-  http://code.google.com/p/scte/
-  
-
 Documentation
 -------------
 
   The documentation available as of the date of this release is available
-  http://http://arxiv.org/abs/0906.4833. The most up-to-date documentation can
-  be found at http://code.google.com/p/scte/
+  at https://doi.org/10.1016/j.cpc.2012.02.013 or https://arxiv.org/abs/0906.4833.
   
   
 SCTE Components
